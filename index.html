@@ -21,7 +21,7 @@
   /* ===== Story-Leiste (roter Faden) ===== */
   .storybar{position:fixed;top:0;left:0;right:0;height:44px;display:flex;align-items:center;justify-content:center;gap:4px;background:rgba(10,14,40,.94);z-index:60}
   .snode{display:flex;align-items:center;gap:4px}
-  .snode .lbl{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#5B66A0;padding:5px 11px;border-radius:99px;cursor:pointer;transition:.2s;white-space:nowrap}
+  .snode .lbl{font-size:13.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#5B66A0;padding:5px 12px;border-radius:99px;cursor:pointer;transition:.2s;white-space:nowrap}
   .snode .lbl:hover{color:#fff}
   .snode.done .lbl{color:#8A97D9}
   .snode.cur .lbl{background:var(--accent);color:#fff}
@@ -35,11 +35,12 @@
   section.dark{background:var(--navy);color:#fff}
   section.light{background:var(--paper)}
 
-  .eyebrow{font-size:clamp(11px,1.1vw,14px);letter-spacing:3px;text-transform:uppercase;font-weight:800;color:var(--accent)}
+  .eyebrow{font-size:clamp(13px,1.25vw,18px);letter-spacing:3px;text-transform:uppercase;font-weight:800;color:var(--accent)}
   .dark .eyebrow{color:var(--ice)}
-  h1{font-family:var(--serif);font-weight:800;line-height:1.1;font-size:clamp(34px,5.2vw,66px);margin-top:1.5vh}
-  h2{font-family:var(--serif);font-weight:800;line-height:1.12;font-size:clamp(28px,4vw,50px);color:var(--navy);margin-top:1vh}
+  h1{font-family:var(--serif);font-weight:800;line-height:1.1;font-size:clamp(42px,5.4vw,76px);margin-top:1.5vh}
+  h2{font-family:var(--serif);font-weight:800;line-height:1.12;font-size:clamp(34px,4.4vw,62px);color:var(--navy);margin-top:1vh}
   .dark h2{color:#fff}
+  .dark h2 em{color:var(--ice);font-style:normal}
 
   /* Fragments */
   .frag{opacity:0;transform:translateY(14px);transition:opacity .4s ease,transform .4s ease}
@@ -47,65 +48,65 @@
 
   /* ===== S1: Frage ===== */
   #s1{justify-content:center}
-  #s1 .q{font-family:var(--serif);font-size:clamp(36px,5.5vw,72px);font-weight:800;line-height:1.15;max-width:1100px}
+  #s1 .q{font-family:var(--serif);font-size:clamp(42px,5.6vw,82px);font-weight:800;line-height:1.15;max-width:1250px}
   #s1 .q em{color:var(--ice);font-style:normal}
-  #s1 .ans{margin-top:5vh;font-size:clamp(18px,2.2vw,30px);line-height:1.5;color:var(--ice);max-width:980px}
+  #s1 .ans{margin-top:5vh;font-size:clamp(22px,2.5vw,37px);line-height:1.5;color:var(--ice);max-width:1120px}
   #s1 .ans b{color:#fff}
-  #s1 .byline{position:absolute;bottom:4vh;font-size:13px;color:#7C89C8}
+  #s1 .byline{position:absolute;bottom:4vh;font-size:16px;color:#7C89C8}
 
   /* ===== S2: Werkzeug ===== */
   .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8vw;margin-top:5vh;flex:1;align-content:start}
   .ucard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:3.4vh 1.8vw;box-shadow:0 4px 18px rgba(30,39,97,.08)}
-  .num{width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:19px;display:flex;align-items:center;justify-content:center}
-  .ucard h3{font-size:clamp(17px,1.9vw,25px);color:var(--navy);margin:2.2vh 0 1vh;line-height:1.25}
-  .ucard .one{font-size:clamp(13px,1.4vw,17px);color:var(--muted);line-height:1.45}
+  .num{width:54px;height:54px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:25px;display:flex;align-items:center;justify-content:center}
+  .ucard h3{font-size:clamp(21px,2.2vw,31px);color:var(--navy);margin:2.2vh 0 1vh;line-height:1.25}
+  .ucard .one{font-size:clamp(16px,1.7vw,23px);color:var(--muted);line-height:1.45}
   .bigfact{margin-top:auto;padding:2vh 2vw;background:var(--tint);border-radius:14px;display:flex;align-items:baseline;gap:1.2vw}
-  .bigfact .pct{font-family:var(--serif);font-size:clamp(34px,4vw,52px);font-weight:800;color:var(--navy)}
-  .bigfact .txt{font-size:clamp(13px,1.5vw,18px);line-height:1.4}
+  .bigfact .pct{font-family:var(--serif);font-size:clamp(42px,4.4vw,62px);font-weight:800;color:var(--navy)}
+  .bigfact .txt{font-size:clamp(17px,1.8vw,24px);line-height:1.4}
 
   /* ===== Demo ===== */
-  #sdemo h2{font-size:clamp(22px,2.6vw,34px)}
+  #sdemo h2{font-size:clamp(26px,2.9vw,40px)}
   .demoframe{flex:1;min-height:0;display:flex;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 6px 30px rgba(20,27,69,.18);margin-top:2vh;background:#fff}
-  .d-side{width:230px;flex-shrink:0;background:var(--deep);color:#fff;padding:14px 13px;display:flex;flex-direction:column;gap:12px;overflow-y:auto}
-  .sec-label{font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:#8A97D9;font-weight:700}
+  .d-side{width:440px;flex-shrink:0;background:var(--deep);color:#fff;padding:20px 20px;display:flex;flex-direction:column;gap:18px;overflow-y:auto}
+  .sec-label{font-size:19px;letter-spacing:1.3px;text-transform:uppercase;color:#8A97D9;font-weight:700}
   .asset{background:var(--panel);border-radius:9px;padding:10px 11px;margin-top:6px}
-  .asset .name{font-size:13.5px;font-weight:700}
-  .asset .subt{font-size:10px;color:var(--ice);margin-top:1px}
-  .kv{display:flex;justify-content:space-between;font-size:10px;margin-top:6px}
+  .asset .name{font-size:25px;font-weight:700}
+  .asset .subt{font-size:20px;color:var(--ice);margin-top:3px}
+  .kv{display:flex;justify-content:space-between;font-size:20px;margin-top:11px}
   .kv .k{color:#8A97D9}.kv .v{font-family:var(--mono);color:#fff}
   .trow{display:flex;align-items:center;gap:7px;background:var(--panel);border-radius:7px;padding:6px 9px;margin-top:6px}
   .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex-shrink:0}
   .dot.warn{background:var(--warn)}
-  .trow .tn{font-size:9.5px;color:#C7CFF3;flex:1}
-  .trow .tv{font-family:var(--mono);font-size:10px;color:#fff}
-  .d-hint{font-size:9px;color:#7C89C8;line-height:1.5;margin-top:auto;padding-top:6px}
+  .trow .tn{font-size:20px;color:#C7CFF3;flex:1}
+  .trow .tv{font-family:var(--mono);font-size:20px;color:#fff}
+  .d-hint{font-size:18px;color:#7C89C8;line-height:1.5;margin-top:auto;padding-top:6px}
   .d-main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--paper)}
   .d-top{flex-shrink:0;background:var(--navy);color:#fff;display:flex;align-items:center;gap:10px;padding:8px 14px}
-  .d-logo{width:24px;height:24px;border-radius:6px;background:var(--ice);color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px}
-  .d-top h4{font-size:12.5px;font-weight:600}
-  .d-tag{font-size:8.5px;background:var(--panel);color:var(--ice);padding:2px 7px;border-radius:99px;letter-spacing:.5px;text-transform:uppercase}
-  .d-top .du{margin-left:auto;font-size:9.5px;color:var(--ice)}
+  .d-logo{width:28px;height:28px;border-radius:6px;background:var(--ice);color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
+  .d-top h4{font-size:18px;font-weight:600}
+  .d-tag{font-size:12px;background:var(--panel);color:var(--ice);padding:3px 8px;border-radius:99px;letter-spacing:.5px;text-transform:uppercase}
+  .d-top .du{margin-left:auto;font-size:14px;color:var(--ice)}
   .chat{flex:1;overflow-y:auto;padding:16px 20px 8px;display:flex;flex-direction:column;gap:11px}
-  .msg{max-width:80%;border-radius:11px;padding:10px 13px;font-size:12px;line-height:1.5;animation:pop .25s ease}
+  .msg{max-width:86%;border-radius:11px;padding:15px 20px;font-size:25px;line-height:1.55;animation:pop .25s ease}
   @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
   .msg.user{align-self:flex-end;background:var(--navy);color:#fff;border-bottom-right-radius:3px}
   .msg.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:3px;box-shadow:0 2px 8px rgba(30,39,97,.05)}
   .msg.bot .head{display:flex;align-items:center;gap:7px;margin-bottom:7px}
-  .msg.bot .avatar{width:18px;height:18px;border-radius:5px;background:var(--accent);color:#fff;font-size:8px;font-weight:800;display:flex;align-items:center;justify-content:center}
-  .msg.bot .who{font-size:9px;font-weight:700;color:var(--accent);letter-spacing:.4px}
+  .msg.bot .avatar{width:22px;height:22px;border-radius:5px;background:var(--accent);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .msg.bot .who{font-size:18px;font-weight:700;color:var(--accent);letter-spacing:.4px}
   .msg.bot b{color:var(--navy)}
   .causes{margin:8px 0 3px;display:flex;flex-direction:column;gap:5px}
   .cause{display:flex;gap:8px;align-items:flex-start;background:#F4F6FD;border-radius:8px;padding:7px 10px}
-  .prob{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--accent);flex-shrink:0;width:34px}
-  .cause .ct{font-size:11px;line-height:1.4}
+  .prob{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--accent);flex-shrink:0;width:50px}
+  .cause .ct{font-size:23px;line-height:1.45}
   .cause .ct b{display:block}
   .steps{margin:7px 0 3px;counter-reset:st;display:flex;flex-direction:column;gap:4px;list-style:none}
-  .steps li{counter-increment:st;display:flex;gap:8px;font-size:11px;line-height:1.4}
+  .steps li{counter-increment:st;display:flex;gap:8px;font-size:23px;line-height:1.45}
   .steps li::before{content:counter(st);flex-shrink:0;width:16px;height:16px;border-radius:50%;background:var(--navy);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
-  .part{display:flex;gap:8px;align-items:center;background:#EFF7F1;border:1px solid #CDE7D4;border-radius:8px;padding:7px 10px;margin-top:7px;font-size:11px}
+  .part{display:flex;gap:8px;align-items:center;background:#EFF7F1;border:1px solid #CDE7D4;border-radius:8px;padding:13px 15px;margin-top:7px;font-size:23px}
   .part .pid{font-family:var(--mono);font-weight:700;color:#1A7A38}
   .sources{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;padding-top:7px;border-top:1px dashed var(--line)}
-  .src{display:inline-flex;align-items:center;gap:4px;font-size:8.5px;font-family:var(--mono);background:#EEF1FB;color:var(--accent);border:1px solid #D8DEF5;border-radius:99px;padding:2px 7px}
+  .src{display:inline-flex;align-items:center;gap:4px;font-size:15.5px;font-family:var(--mono);background:#EEF1FB;color:var(--accent);border:1px solid #D8DEF5;border-radius:99px;padding:5px 11px}
   .src::before{content:"⛁";font-size:8px}
   .typing{align-self:flex-start;display:flex;gap:4px;padding:11px 14px;background:#fff;border:1px solid var(--line);border-radius:11px;border-bottom-left-radius:3px}
   .typing i{width:6px;height:6px;border-radius:50%;background:#9AA6D8;animation:blink 1.2s infinite}
@@ -113,13 +114,13 @@
   @keyframes blink{0%,70%,100%{opacity:.25}35%{opacity:1}}
   .d-input{flex-shrink:0;padding:8px 20px 12px}
   .chips{display:flex;gap:7px;flex-wrap:wrap}
-  .chip{border:1.5px solid var(--accent);color:var(--accent);background:#fff;font-size:11px;font-weight:600;border-radius:99px;padding:6px 12px;cursor:pointer;transition:.15s;font-family:var(--sans)}
+  .chip{border:1.5px solid var(--accent);color:var(--accent);background:#fff;font-size:21px;font-weight:600;border-radius:99px;padding:11px 19px;cursor:pointer;transition:.15s;font-family:var(--sans)}
   .chip:hover{background:var(--accent);color:#fff}
   .chip:disabled{opacity:.35;cursor:default;pointer-events:none}
 
   /* ===== S3: Kreislauf / Flywheel ===== */
   #s3 .wrap{flex:1;display:flex;gap:4vw;align-items:center;min-height:0}
-  .fly{flex-shrink:0;width:min(40vw,46vh);height:min(40vw,46vh);position:relative}
+  .fly{flex-shrink:0;width:min(44vw,56vh);height:min(44vw,56vh);position:relative}
   .fly svg{width:100%;height:100%}
   .ring{fill:none;stroke:#D7DDF3;stroke-width:3}
   .ringflow{fill:none;stroke:var(--accent);stroke-width:3.5;stroke-dasharray:26 18;opacity:0;transition:opacity .5s}
@@ -129,38 +130,80 @@
   .fnode.on{opacity:1}
   .fnode circle{fill:#fff;stroke:var(--accent);stroke-width:2.5}
   .fnode.core circle{fill:var(--navy);stroke:var(--navy)}
-  .fnode text{font-family:var(--sans);font-size:12.5px;font-weight:700;fill:var(--navy);text-anchor:middle}
-  .fnode.core text{fill:#fff;font-size:13px}
+  .fnode text{font-family:var(--sans);font-size:15px;font-weight:700;fill:var(--navy);text-anchor:middle}
+  .fnode.core text{fill:#fff;font-size:16px}
   .fnode .sub2{font-size:9.5px;font-weight:500;fill:var(--muted)}
   .fly .corelabel{font-family:var(--serif)}
   #s3 .legend{flex:1;display:flex;flex-direction:column;gap:2.6vh}
   .lrow{display:flex;gap:1.2vw;align-items:flex-start}
-  .lnum{flex-shrink:0;width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center}
-  .lrow h3{font-size:clamp(16px,1.9vw,24px);color:var(--navy);line-height:1.2}
-  .lrow p{font-size:clamp(12.5px,1.3vw,16px);color:var(--muted);margin-top:.4vh;max-width:34vw}
-  .lock{margin-top:1vh;padding:1.8vh 1.6vw;background:var(--navy);border-radius:13px;color:#fff;font-size:clamp(13px,1.5vw,18px);line-height:1.45}
+  .lnum{flex-shrink:0;width:46px;height:46px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center}
+  .lrow h3{font-size:clamp(20px,2.2vw,30px);color:var(--navy);line-height:1.2}
+  .lrow p{font-size:clamp(15px,1.6vw,21px);color:var(--muted);margin-top:.4vh;max-width:34vw}
+  .lock{margin-top:1vh;padding:1.8vh 1.6vw;background:var(--navy);border-radius:13px;color:#fff;font-size:clamp(16px,1.7vw,23px);line-height:1.45}
   .lock b{color:var(--ice)}
+
+  /* ===== S-FLEET: Globaler Kreislauf ===== */
+  #sfleet{justify-content:flex-start}
+  .zb{display:inline-block;margin-left:10px;background:var(--ice);color:var(--navy);font-size:12px;font-weight:800;letter-spacing:1.5px;padding:4px 11px;border-radius:99px;vertical-align:middle}
+  .flwrap{flex:1;display:flex;gap:2vw;align-items:center;min-height:0;margin-top:2vh}
+  .flscene{flex:1;height:100%;min-width:0}
+  .flscene svg{width:100%;height:100%}
+  .flside{width:clamp(240px,24vw,360px);flex-shrink:0;display:flex;flex-direction:column;gap:1.6vh}
+  .flcap{background:var(--panel);border-radius:14px;padding:2.2vh 1.4vw;height:20vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+  .flcap .step{font-size:17px;letter-spacing:1.5px;text-transform:uppercase;font-weight:800;color:var(--ice);transition:.3s}
+  .flcap .txt{font-size:clamp(18px,1.8vw,25px);line-height:1.4;margin-top:1vh;font-weight:600;color:#fff;transition:.3s}
+  .flstat{display:flex;flex-direction:column;align-items:flex-start;gap:.6vh;background:var(--deep);border-radius:14px;padding:2vh 1.4vw;opacity:.25;transition:.5s}
+  .flstat.on{opacity:1}
+  .flstat .big{font-family:var(--serif);font-size:clamp(34px,3.6vw,54px);font-weight:800;color:var(--ice);white-space:nowrap}
+  .flstat .lbl{font-size:clamp(14px,1.4vw,19px);line-height:1.35;color:#C7CFF3}
+  .flmoat{background:#fff;color:var(--navy);border-radius:14px;padding:2vh 1.4vw;font-size:clamp(15px,1.55vw,21px);line-height:1.4;opacity:.2;transform:translateY(8px);transition:.5s}
+  .flmoat.on{opacity:1;transform:none}
+  .flmoat b{color:var(--accent)}
+  .flfed{font-size:clamp(13px,1.3vw,17px);color:#8A97D9;line-height:1.5}
+  .flfed b{color:var(--ice)}
+  .conn{stroke:#3A4478;stroke-width:1.4;fill:none;opacity:.3;transition:opacity .5s}
+  .conn.flow{stroke:#CADCFC;stroke-width:2.6;opacity:.95;stroke-dasharray:7 11;animation:flowin 1.1s linear infinite}
+  .conn.out{stroke:#8FE3AC;stroke-width:2.6;opacity:.95;stroke-dasharray:7 11;animation:flowout 1.1s linear infinite}
+  @keyframes flowin{to{stroke-dashoffset:-36}}
+  @keyframes flowout{to{stroke-dashoffset:36}}
+  .flnode circle{fill:#27336E;stroke:#CADCFC;stroke-width:2;transition:fill .55s ease, stroke .55s ease, stroke-width .3s ease}
+  .flnode.sig circle{fill:#D97706;stroke:#FFD9A0;animation:sigpulse 1.4s ease-in-out infinite}
+  .flnode.ok circle{fill:#2BA84A;stroke:#A8E0B6}
+  @keyframes sigpulse{0%,100%{stroke-width:2.5}50%{stroke-width:6}}
+  .flcore #fleos{transition:fill .5s ease, stroke-width .4s ease}
+  .flcore.recv #fleos{stroke-width:4}
+  .flcore.proc #fleos{fill:#3A4A9F;stroke-width:6}
+  .flhalo{transition:opacity .4s}
+  .flhalo.on{animation:halopulse 1.7s ease-in-out infinite}
+  @keyframes halopulse{0%,100%{opacity:.12}50%{opacity:.55}}
+  .region{font-family:var(--sans);font-size:16px;font-weight:800;letter-spacing:2px;fill:#46508C;text-transform:uppercase}
+  .flcore text{font-family:var(--serif);fill:#fff;text-anchor:middle;font-weight:800}
+  .wave{fill:none;stroke:var(--ice);stroke-width:3;opacity:0}
 
   /* ===== S4: Modell ===== */
   .stufen{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8vw;margin-top:4.5vh}
   .scard{border-radius:16px;padding:3vh 1.7vw;background:var(--tint)}
   .scard.hl{background:var(--navy);color:#fff}
-  .scard .slabel{font-size:clamp(10px,1vw,13px);letter-spacing:2.5px;font-weight:800;text-transform:uppercase;color:var(--accent)}
+  .scard .slabel{font-size:clamp(12px,1.1vw,15px);letter-spacing:2.5px;font-weight:800;text-transform:uppercase;color:var(--accent)}
   .scard.hl .slabel{color:var(--ice)}
-  .scard h3{font-size:clamp(16px,1.8vw,23px);color:var(--navy);margin-top:1.2vh;line-height:1.25}
+  .scard h3{font-size:clamp(19px,2vw,27px);color:var(--navy);margin-top:1.2vh;line-height:1.25}
   .scard.hl h3{color:#fff}
-  .scard .one{font-size:clamp(12px,1.25vw,15px);color:var(--muted);margin-top:1vh;line-height:1.45}
+  .scard .one{font-size:clamp(15px,1.5vw,20px);color:var(--muted);margin-top:1vh;line-height:1.45}
   .scard.hl .one{color:var(--ice)}
   .pilot{margin-top:auto;background:var(--navy);border-radius:16px;padding:2.6vh 2vw;color:#fff;display:flex;align-items:center;gap:2vw}
-  .pilot .big{font-family:var(--serif);font-size:clamp(26px,3.2vw,42px);font-weight:800;color:var(--ice);white-space:nowrap}
-  .pilot .pt{font-size:clamp(13px,1.5vw,18px);line-height:1.5}
+  .pilot .big{font-family:var(--serif);font-size:clamp(30px,3.4vw,48px);font-weight:800;color:var(--ice);white-space:nowrap}
+  .pilot .pt{font-size:clamp(16px,1.7vw,23px);line-height:1.5}
   .pilot .pt b{color:var(--ice)}
 
   /* ===== S5: Antwort ===== */
-  #s5 .qecho{font-size:clamp(15px,1.7vw,21px);color:#7C89C8;margin-top:1.5vh;font-style:italic}
-  .assets{display:grid;grid-template-columns:1fr 1fr;gap:1.5vw;margin-top:4vh;max-width:1050px}
-  .acard{background:var(--panel);border-radius:14px;padding:2.8vh 1.8vw;font-size:clamp(15px,1.7vw,21px);font-weight:700;color:#fff}
-  #s5 .close{margin-top:auto;font-family:var(--serif);font-size:clamp(19px,2.4vw,30px);color:var(--ice);line-height:1.45;max-width:1050px}
+  #s5{justify-content:center}
+  #s5 .qecho{font-size:clamp(18px,1.9vw,25px);color:#7C89C8;margin-top:1.5vh;font-style:italic}
+  .assets{display:grid;grid-template-columns:1fr 1fr;gap:1.5vw;margin-top:3.4vh;max-width:1200px}
+  .acard{background:var(--panel);border-radius:16px;padding:2.7vh 1.9vw;display:flex;flex-direction:column;gap:.7vh;box-shadow:0 6px 22px rgba(10,14,40,.28);border-left:5px solid var(--ice)}
+  .acard .anum{width:44px;height:44px;border-radius:11px;background:var(--accent);color:#fff;font-weight:800;font-size:19px;display:flex;align-items:center;justify-content:center;font-family:var(--serif)}
+  .acard .at{font-size:clamp(18px,1.8vw,25px);font-weight:700;color:#fff;line-height:1.2;margin-top:.9vh}
+  .acard .as{font-size:clamp(13px,1.3vw,17px);color:#C7CFF3;line-height:1.45}
+  #s5 .close{margin-top:3.4vh;font-family:var(--serif);font-size:clamp(23px,2.6vw,36px);color:var(--ice);line-height:1.45;max-width:1200px}
   #s5 .close b{color:#fff}
 
   /* Nav arrows + counter */
@@ -168,34 +211,12 @@
   .dark-mode .arrow{background:rgba(255,255,255,.12);color:#fff}
   .arrow:hover{background:var(--accent);color:#fff}
   .arrow.prev{left:12px}.arrow.next{right:12px}
-  .counter{position:fixed;bottom:14px;right:18px;font-family:var(--mono);font-size:11px;color:#8A97D9;z-index:50}
+  .counter{position:fixed;bottom:14px;right:18px;font-family:var(--mono);font-size:14px;color:#8A97D9;z-index:50}
 
-  @media (max-width:880px){.cards3,.stufen,.assets{grid-template-columns:1fr}.d-side{display:none}#s3 .wrap{flex-direction:column}.lrow p{max-width:none}}
+  @media (max-width:880px){.cards3,.stufen,.assets{grid-template-columns:1fr}.d-side{display:none}#s3 .wrap,.flwrap{flex-direction:column}.lrow p{max-width:none}}
 </style>
 </head>
 <body class="dark-mode">
-
-<div id="gate" style="position:fixed;inset:0;z-index:999;background:#141B45;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;font-family:'Segoe UI',system-ui,sans-serif;color:#fff">
-  <div style="font-family:Cambria,Georgia,serif;font-size:clamp(22px,3vw,34px);font-weight:800;letter-spacing:.5px">KI im Service — Impuls T. Stein</div>
-  <form id="gateForm" style="display:flex;gap:10px;align-items:center">
-    <input id="gatePw" type="password" placeholder="Passwort" autocomplete="off" style="font-size:16px;padding:10px 14px;border-radius:8px;border:1px solid #3A4A9F;background:#1E2761;color:#fff;outline:none">
-    <button type="submit" style="font-size:16px;padding:10px 20px;border-radius:8px;border:none;background:#3A4A9F;color:#fff;cursor:pointer;font-weight:700">Enter</button>
-  </form>
-  <div id="gateErr" style="color:#F0A; font-size:13px; min-height:16px"></div>
-</div>
-<script>
-(function(){
-  var PW="Reifenhauser2026";
-  var gate=document.getElementById("gate");
-  if(sessionStorage.getItem("kiImpulsAuth")==="1"){gate.style.display="none";}
-  document.getElementById("gateForm").addEventListener("submit",function(e){
-    e.preventDefault();
-    var v=document.getElementById("gatePw").value;
-    if(v===PW){sessionStorage.setItem("kiImpulsAuth","1");gate.style.display="none";}
-    else{document.getElementById("gateErr").textContent="Falsches Passwort";}
-  });
-})();
-</script>
 
 <div class="storybar" id="storybar"></div>
 
@@ -204,7 +225,7 @@
   <!-- 1: FRAGE -->
   <section id="s1" class="dark active">
     <div class="eyebrow">Impuls · KI im Service · Tobias Stein</div>
-    <div class="q">Der US-Kunde hat auch wegen unserer <em>KI-Idee</em> gekauft.<br>Wie lösen wir das Versprechen ein — und halten die Nase vorn?</div>
+    <div class="q">Ein internationaler Schlüsselkunde hat auch wegen unserer <em>KI-Idee</em> gekauft.<br>Wie lösen wir das Versprechen ein — und halten die Nase vorn?</div>
     <div class="ans frag">Meine These: <b>Nicht durch die beste KI.</b> Die kann jeder kaufen.<br>Sondern durch das, was nur wir haben: <b>sechs Jahrzehnte Servicewissen</b> — maschinenlesbar gemacht.</div>
     <div class="byline">15.06.2026 · Pfeiltaste → für nächsten Schritt</div>
   </section>
@@ -217,7 +238,7 @@
       <div class="ucard frag">
         <div class="num">1</div>
         <h3>Service-Copilot</h3>
-        <div class="one">Antwortet aus Doku &amp; Historie — mit Quelle. Macht R-INC-Techniker schneller CSC-fähig.</div>
+        <div class="one">Antwortet aus Doku &amp; Historie — mit Quelle. Macht US-Techniker schneller CSC-fähig.</div>
       </div>
       <div class="ucard frag">
         <div class="num">2</div>
@@ -247,7 +268,7 @@
           <div class="asset">
             <div class="name">EVEREX 3400</div>
             <div class="subt">Gießfolienlinie · CPP · 3,4 m</div>
-            <div class="kv"><span class="k">Kunde</span><span class="v">US-Account #1</span></div>
+            <div class="kv"><span class="k">Kunde</span><span class="v">Schlüsselkunde A</span></div>
             <div class="kv"><span class="k">Anlage</span><span class="v">3 von 8</span></div>
             <div class="kv"><span class="k">Betriebsstunden</span><span class="v">1.842 h</span></div>
             <div class="kv"><span class="k">Letzte Wartung</span><span class="v">28.05.2026</span></div>
@@ -255,7 +276,7 @@
         </div>
         <div>
           <div class="sec-label">Telemetrie · live</div>
-          <div class="trow"><span class="dot"></span><span class="tn">Liniengeschw.</span><span class="tv" id="tv1">412 m/min</span></div>
+          <div class="trow"><span class="dot"></span><span class="tn">Liniengeschw.</span><span class="tv" id="tv1">250 m/min</span></div>
           <div class="trow"><span class="dot"></span><span class="tn">Schmelzedruck</span><span class="tv" id="tv2">186 bar</span></div>
           <div class="trow"><span class="dot warn"></span><span class="tn">Dickentoleranz Mitte</span><span class="tv">±4,1 µm</span></div>
           <div class="trow"><span class="dot"></span><span class="tn">Chill-Roll Vorlauf</span><span class="tv" id="tv3">21,4 °C</span></div>
@@ -265,7 +286,7 @@
       <div class="d-main">
         <div class="d-top">
           <div class="d-logo">CSC</div><h4>Service-Copilot</h4><span class="d-tag">Prototyp</span>
-          <div class="du">Techniker: M. Carter · R INC, Charlotte NC</div>
+          <div class="du">Servicetechniker vor Ort · Servicepartner (anonymisiert)</div>
         </div>
         <div class="chat" id="chat">
           <div class="msg bot">
@@ -277,6 +298,7 @@
           <div class="chips">
             <button class="chip" id="c1" onclick="ask(1)">Bekannte Ursachen?</button>
             <button class="chip" id="c2" onclick="ask(2)" disabled>Zeig mir die PAM-Kalibrierprozedur</button>
+            <button class="chip" id="c3" onclick="ask(3)" disabled>Ja, bitte anfragen</button>
           </div>
         </div>
       </div>
@@ -285,7 +307,7 @@
 
   <!-- 4: KREISLAUF -->
   <section id="s3" class="light">
-    <div class="eyebrow">Schritt 3 · Der Kreislauf — Horizont 3 Jahre</div>
+    <div class="eyebrow">Schritt 3 · Der Kreislauf pro Kunde — Horizont 3 Jahre</div>
     <h2>Jeder Servicefall macht das System besser</h2>
     <div class="wrap">
       <div class="fly" id="fly">
@@ -293,24 +315,21 @@
           <circle class="ring" cx="180" cy="180" r="118"/>
           <circle class="ringflow" cx="180" cy="180" r="118"/>
           <g class="fnode" id="f1">
-            <circle cx="180" cy="52" r="40"/>
-            <text x="180" y="48">Servicefall</text>
-            <text x="180" y="62" class="sub2">gelöst &amp; dokumentiert</text>
+            <circle cx="180" cy="56" r="54"/>
+            <text x="180" y="62">Servicefall</text>
           </g>
           <g class="fnode" id="f2">
-            <circle cx="295" cy="240" r="40"/>
-            <text x="295" y="236">Wissensbasis</text>
-            <text x="295" y="250" class="sub2">wächst</text>
+            <circle cx="295" cy="240" r="54"/>
+            <text x="295" y="246">Wissensbasis</text>
           </g>
           <g class="fnode" id="f3">
-            <circle cx="65" cy="240" r="40"/>
-            <text x="65" y="236">Copilot</text>
-            <text x="65" y="250" class="sub2">wird präziser</text>
+            <circle cx="65" cy="240" r="54"/>
+            <text x="65" y="246">Copilot</text>
           </g>
           <g class="fnode core" id="f0">
-            <circle cx="180" cy="180" r="52"/>
+            <circle cx="180" cy="180" r="58"/>
             <text x="180" y="176" class="corelabel">Installed</text>
-            <text x="180" y="194" class="corelabel">Base</text>
+            <text x="180" y="197" class="corelabel">Base</text>
           </g>
         </svg>
       </div>
@@ -327,14 +346,50 @@
           <h3>Das Flywheel dreht</h3>
           <p>Je größer die angebundene Installed Base, desto besser das System.</p>
         </div></div>
-        <div class="lock frag">Ohne vergleichbare Installed Base <b>nicht kopierbar</b> — bei Meri: Portal + Digital Twin → <b>+30 % Serviceumsatz</b>.</div>
+        <div class="lock frag">Ohne vergleichbare Installed Base <b>nicht kopierbar</b> — in vergleichbaren Referenzprojekten: Portal + Digital Twin → <b>zweistelliger Serviceumsatz-Zuwachs</b>.</div>
       </div>
     </div>
   </section>
 
-  <!-- 5: MODELL -->
+  <!-- 5: GLOBALER KREISLAUF / FLEET INTELLIGENCE -->
+  <section id="sfleet" class="dark">
+    <div class="eyebrow">Schritt 4 · Vom einzelnen Loop zum globalen Kreislauf <span class="zb">Zielbild · Horizont 3 Jahre</span></div>
+    <h2>Eine Anlage löst — <em>die ganze Flotte lernt mit.</em></h2>
+    <div class="flwrap">
+      <div class="flscene">
+        <svg viewBox="0 0 1000 560" id="flsvg">
+          <text class="region" x="190" y="60" text-anchor="middle">Amerika</text>
+          <text class="region" x="510" y="48" text-anchor="middle">Europa</text>
+          <text class="region" x="815" y="60" text-anchor="middle">Asien · Pazifik</text>
+          <g id="flconns"></g>
+          <circle class="wave" id="flwave" cx="500" cy="300" r="80"/>
+          <circle class="flhalo" id="flhalo" cx="500" cy="300" r="78" fill="none" stroke="#CADCFC" stroke-width="2.5" opacity="0"/>
+          <g class="flnode flcore" id="flcore">
+            <circle id="fleos" cx="500" cy="300" r="64" fill="#141B45" stroke="#CADCFC" stroke-width="2.5"/>
+            <text x="500" y="295" font-size="16">Fleet</text>
+            <text x="500" y="316" font-size="16">Intelligence</text>
+          </g>
+          <g id="flnodes"></g>
+        </svg>
+      </div>
+      <div class="flside">
+        <div class="flcap">
+          <div class="step" id="flcapStep">Ausgangslage</div>
+          <div class="txt" id="flcapTxt">Weltweite Installed Base — jede Anlage sendet Telemetrie.</div>
+        </div>
+        <div class="flstat" id="flstat">
+          <div class="big">1 → alle</div>
+          <div class="lbl">Eine Anlage löst — die ganze Flotte profitiert.</div>
+        </div>
+        <div class="flmoat" id="flmoat">Nicht kopierbar: <b>Je größer die Flotte, desto schneller lernt jede einzelne Anlage.</b> Skala wird zum Vorsprung.</div>
+        <div class="flfed">Federated: <b>Rohdaten bleiben beim Kunden</b> — nur das anonymisierte Muster reist.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6: MODELL -->
   <section id="s4" class="light">
-    <div class="eyebrow">Schritt 4 · Das Geschäftsmodell — groß gedacht</div>
+    <div class="eyebrow">Schritt 5 · Das Geschäftsmodell — groß gedacht</div>
     <h2>Vom Werkzeug zum Erlösmodell</h2>
     <div class="stufen">
       <div class="scard frag">
@@ -355,33 +410,33 @@
     </div>
     <div class="pilot frag">
       <div class="big">90 Tage</div>
-      <div class="pt"><b>Pilot auf den 8 Anlagen des US-Key-Accounts.</b> Team: 2–3 Personen in der BU, Plattform über Reifenhäuser NEXT. Dort beweist der Copilot seinen Wert — und der Kunde sieht das KI-Versprechen eingelöst.</div>
+      <div class="pt"><b>Pilot auf den 8 Anlagen eines internationalen Schlüsselkunden.</b> Team: 2–3 Personen in der BU, Plattform über Reifenhäuser NEXT. Dort beweist der Copilot seinen Wert — und der Kunde sieht das KI-Versprechen eingelöst.</div>
     </div>
   </section>
 
-  <!-- 6: ANTWORT -->
+  <!-- 7: ANTWORT -->
   <section id="s5" class="dark">
-    <div class="eyebrow">Schritt 5 · Die Antwort</div>
+    <div class="eyebrow">Schritt 6 · Die Antwort</div>
     <h2>Wie halten wir die Nase vorn?</h2>
     <div class="qecho">— die Frage vom Anfang. Verteidigbar ist nur, was keiner kopieren kann:</div>
     <div class="assets">
-      <div class="acard frag">Die eigenen Daten</div>
-      <div class="acard frag">Das Wissen der Mannschaft</div>
-      <div class="acard frag">Die Integration in reale Prozesse</div>
-      <div class="acard frag">Die Installed Base aus 6 Jahrzehnten</div>
+      <div class="acard frag"><div class="anum">01</div><div class="at">Die eigenen Daten</div><div class="as">Telemetrie und Servicehistorie, die nur uns gehören.</div></div>
+      <div class="acard frag"><div class="anum">02</div><div class="at">Das Wissen der Mannschaft</div><div class="as">Sechs Jahrzehnte Erfahrung — maschinenlesbar gemacht.</div></div>
+      <div class="acard frag"><div class="anum">03</div><div class="at">Integration in reale Prozesse</div><div class="as">Fest verankert im Workflow von Technik und Betrieb.</div></div>
+      <div class="acard frag"><div class="anum">04</div><div class="at">Installed Base aus 6 Jahrzehnten</div><div class="as">Reichweite, die kein Wettbewerber kurzfristig aufholt.</div></div>
     </div>
     <div class="close frag">Die Nase vorn behält, wer sein <b>Problemverständnis</b> am schnellsten in Daten und Workflows übersetzt.<br><b>Dort würde ich ansetzen.</b></div>
   </section>
 
 </div>
 
-<div class="counter" id="counter">1 / 6</div>
+<div class="counter" id="counter">1 / 7</div>
 <button class="arrow prev" onclick="step(-1)">←</button>
 <button class="arrow next" onclick="step(1)">→</button>
 
 <script>
-const SECTIONS=["s1","s2","sdemo","s3","s4","s5"];
-const LABELS=["Frage","Werkzeug","Beweis","Kreislauf","Modell","Antwort"];
+const SECTIONS=["s1","s2","sdemo","s3","sfleet","s4","s5"];
+const LABELS=["Frage","Werkzeug","Beweis","Kreislauf","Fleet","Modell","Antwort"];
 let cur=0;
 
 /* Storybar */
@@ -415,14 +470,18 @@ function jump(i){
   cur=i;
   const sec=document.getElementById(SECTIONS[cur]);
   sec.classList.add('active');
-  /* beim Rückwärts-Springen: alle Fragmente der Zielsektion zeigen, vorwärts: verbergen */
   frags(cur).forEach(f=>{f.classList.remove('on');flySync(f,false);});
+  if(SECTIONS[cur]==='sfleet')Fleet.reset();
   document.getElementById('counter').textContent=(cur+1)+' / '+SECTIONS.length;
   document.body.classList.toggle('dark-mode',sec.classList.contains('dark'));
   paintBar();
 }
 
 function step(d){
+  if(SECTIONS[cur]==='sfleet'){
+    if(d>0){ if(Fleet.next())return; if(cur<SECTIONS.length-1)jump(cur+1); return; }
+    if(Fleet.prev())return; if(cur>0)jump(cur-1); return;
+  }
   const fr=frags(cur);
   if(d>0){
     const next=fr.find(f=>!f.classList.contains('on'));
@@ -431,7 +490,11 @@ function step(d){
   }else{
     const shown=[...fr].reverse().find(f=>f.classList.contains('on'));
     if(shown){shown.classList.remove('on');flySync(shown,false);return;}
-    if(cur>0){jump(cur-1);frags(cur).forEach(f=>{f.classList.add('on');flySync(f,true);});}
+    if(cur>0){
+      jump(cur-1);
+      if(SECTIONS[cur]==='sfleet')Fleet.last();
+      else frags(cur).forEach(f=>{f.classList.add('on');flySync(f,true);});
+    }
   }
 }
 
@@ -459,32 +522,67 @@ const A2=`<div class="msg bot">
   <div class="head"><div class="avatar">AI</div><div class="who">CSC SERVICE-COPILOT</div></div>
   <b>PAM-Kalibrierung</b> — Kurzprozedur (Kap. 7.3.2, angepasst auf Linie 3):
   <ol class="steps">
-    <li>Kalibriergeschwindigkeit 250 m/min, Dickenmessung auf Referenzmodus.</li>
+    <li>Kalibriergeschwindigkeit 180 m/min, Dickenmessung auf Referenzmodus.</li>
     <li>PAM-Lernmodus (HMI → Düse → Kalibrierung), ca. 20 min.</li>
     <li>Profilvergleich freigeben, Stellantriebe referenzieren.</li>
     <li>Toleranzband prüfen: Ziel ±1,5 µm Bahnmitte.</li>
   </ol>
   <b>Hinweis aus SR-2024-0312:</b> Stellantrieb 14/15 referenziert nicht → tauschen statt mehrfach kalibrieren.
-  <div class="part">✓&nbsp; <span class="pid">DB-ST-0415</span> Stellantrieb · <b>4 Stück auf Lager Charlotte, NC</b> · vor Ort am selben Tag</div>
-  <div class="sources"><span class="src">Handbuch Kap. 7.3.2</span><span class="src">SR-2024-0312</span><span class="src">Stückliste L3</span><span class="src">Lager R INC</span></div>
+  <div class="part">✓&nbsp; <span class="pid">DB-ST-0415</span> Stellantrieb · <b>4 Stück im Regionallager vor Ort</b> · vor Ort am selben Tag</div>
+  <div class="sources"><span class="src">Handbuch Kap. 7.3.2</span><span class="src">SR-2024-0312</span><span class="src">Stückliste L3</span><span class="src">Lager Servicepartner</span></div>
+  <div style="margin-top:11px">Soll ich beim Servicepartner <b>gleich ein Ersatzteil anfragen</b>?</div>
 </div>`;
+const A3=`<div class="msg bot">
+  <div class="head"><div class="avatar">AI</div><div class="who">CSC SERVICE-COPILOT</div></div>
+  Erledigt — die Anfrage ist raus und Ihr Bauteil ist bereits für Sie reserviert. Es wird sich umgehend jemand mit Ihnen in Verbindung setzen.
+  <div class="part">✓&nbsp; <span class="pid">DB-ST-0415</span> · 1 Stück reserviert · Anfrage an Servicepartner gesendet</div>
+</div>`;
+const QS={1:"Bekannte Ursachen?",2:"Zeig mir die PAM-Kalibrierprozedur",3:"Ja, bitte anfragen"};
+const ANS={1:A1,2:A2,3:A3};
 function ask(n){
-  const q=n===1?"Bekannte Ursachen?":"Zeig mir die PAM-Kalibrierprozedur";
   document.getElementById('c'+n).disabled=true;
-  chat.appendChild(el(`<div class="msg user">${q}</div>`));scr();
+  chat.appendChild(el(`<div class="msg user">${QS[n]}</div>`));scr();
   const t=el('<div class="typing"><i></i><i></i><i></i></div>');
   setTimeout(()=>{chat.appendChild(t);scr();},350);
-  setTimeout(()=>{t.remove();chat.appendChild(el(n===1?A1:A2));scr();
+  setTimeout(()=>{t.remove();chat.appendChild(el(ANS[n]));scr();
     if(n===1)document.getElementById('c2').disabled=false;
-  },n===1?1900:1700);
+    if(n===2)document.getElementById('c3').disabled=false;
+  },n===3?1500:(n===1?1900:1700));
 }
 setInterval(()=>{
   const a=document.getElementById('tv1'),b=document.getElementById('tv2'),c=document.getElementById('tv3');
   if(!a)return;
-  a.textContent=(410+Math.floor(Math.random()*5))+" m/min";
+  a.textContent=(248+Math.floor(Math.random()*5))+" m/min";
   b.textContent=(184+Math.floor(Math.random()*5))+" bar";
   c.textContent=(21.2+Math.random()*0.5).toFixed(1).replace('.',',')+" °C";
 },2200);
-</script>
-</body>
-</html>
+
+/* ===== Fleet Intelligence (Schritt 4) ===== */
+const Fleet=(function(){
+  const NS='http://www.w3.org/2000/svg';
+  const FL_NODES=[
+    {x:215,y:150},{x:150,y:240},{x:275,y:235},{x:185,y:330},{x:300,y:350},{x:130,y:355},
+    {x:455,y:110},{x:545,y:120},{x:610,y:165},{x:435,y:175},{x:530,y:185},
+    {x:765,y:175},{x:845,y:215},{x:795,y:305},{x:860,y:345},{x:735,y:360},{x:835,y:145}
+  ];
+  const SENDERS=[0,3,7,9,12,14];
+  const CX=500,CY=300;
+  const cns=document.getElementById('flconns'),nds=document.getElementById('flnodes');
+  FL_NODES.forEach((n,i)=>{
+    const ln=document.createElementNS(NS,'line');
+    ln.setAttribute('x1',n.x);ln.setAttribute('y1',n.y);ln.setAttribute('x2',CX);ln.setAttribute('y2',CY);
+    ln.setAttribute('class','conn');ln.id='flc'+i;cns.appendChild(ln);
+    const g=document.createElementNS(NS,'g');g.setAttribute('class','flnode');g.id='fln'+i;
+    const c=document.createElementNS(NS,'circle');
+    c.setAttribute('cx',n.x);c.setAttribute('cy',n.y);c.setAttribute('r',11);
+    c.style.transitionDelay=(Math.hypot(n.x-CX,n.y-CY)/650).toFixed(2)+'s';
+    g.appendChild(c);nds.appendChild(g);
+  });
+  const capStep=document.getElementById('flcapStep'),capTxt=document.getElementById('flcapTxt');
+  const wave=document.getElementById('flwave'),halo=document.getElementById('flhalo'),core=document.getElementById('flcore');
+  const flstat=document.getElementById('flstat'),flmoat=document.getElementById('flmoat');
+  const CAPS=[
+    ['Ausgangslage','Weltweite Installed Base — jede Anlage sendet Telemetrie.'],
+    ['1 · Signale','Mehrere Standorte melden Auffälligkeiten — Amerika, Europa, Asien.'],
+    ['2 · Erfassen','Anonymisierte Daten fließen aus der Flotte in die Fleet Intelligence.'],
+    ['3 · Verarbeiten','Die Fleet Intelligence analysiert die Signale u
