@@ -214,9 +214,37 @@
   .counter{position:fixed;bottom:14px;right:18px;font-family:var(--mono);font-size:14px;color:#8A97D9;z-index:50}
 
   @media (max-width:880px){.cards3,.stufen,.assets{grid-template-columns:1fr}.d-side{display:none}#s3 .wrap,.flwrap{flex-direction:column}.lrow p{max-width:none}}
+
+  /* ===== Login-Gate ===== */
+  .gate{position:fixed;inset:0;z-index:999;background:var(--deep);display:flex;align-items:center;justify-content:center}
+  .gate.hidden{display:none}
+  .gatecard{background:var(--navy);border:1px solid #2C3670;border-radius:18px;padding:46px 40px;width:min(440px,88vw);box-shadow:0 24px 70px rgba(0,0,0,.45)}
+  .gatecard .eg{font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:800;color:var(--ice)}
+  .gatecard h3{font-family:var(--serif);color:#fff;font-size:30px;font-weight:800;margin:8px 0 6px;line-height:1.15}
+  .gatecard .sub{color:#8A97D9;font-size:15px;margin-bottom:28px;line-height:1.45}
+  .gate label{display:block;color:var(--ice);font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin:0 0 7px}
+  .gate input{width:100%;padding:13px 15px;border-radius:11px;border:1px solid #2C3670;background:#1A2050;color:#fff;font-size:17px;font-family:var(--sans);margin-bottom:20px}
+  .gate input:focus{outline:none;border-color:var(--ice)}
+  .gate button{width:100%;padding:14px;border:none;border-radius:11px;background:var(--accent);color:#fff;font-size:17px;font-weight:700;cursor:pointer;font-family:var(--sans);transition:.15s}
+  .gate button:hover{background:#4A5BB8}
+  .gate .err{color:#FF9B9B;font-size:14px;min-height:20px;margin-top:14px;text-align:center}
 </style>
 </head>
 <body class="dark-mode">
+
+<div class="gate" id="gate">
+  <form class="gatecard" id="gateform" onsubmit="return doLogin(event)">
+    <div class="eg">KI im Service · Impuls</div>
+    <h3>Anmeldung erforderlich</h3>
+    <div class="sub">Bitte melde dich an, um die Präsentation zu öffnen.</div>
+    <label for="gu">Benutzername</label>
+    <input id="gu" type="text" autocomplete="off" autofocus>
+    <label for="gp">Passwort</label>
+    <input id="gp" type="password" autocomplete="off">
+    <button type="submit">Anmelden</button>
+    <div class="err" id="gerr"></div>
+  </form>
+</div>
 
 <div class="storybar" id="storybar"></div>
 
@@ -438,6 +466,20 @@
 const SECTIONS=["s1","s2","sdemo","s3","sfleet","s4","s5"];
 const LABELS=["Frage","Werkzeug","Beweis","Kreislauf","Fleet","Modell","Antwort"];
 let cur=0;
+let authed=false;
+function doLogin(e){
+  e.preventDefault();
+  const u=document.getElementById('gu').value.trim();
+  const p=document.getElementById('gp').value;
+  if(u==='TS'&&p==='TS_123'){
+    authed=true;
+    document.getElementById('gate').classList.add('hidden');
+  }else{
+    document.getElementById('gerr').textContent='Benutzername oder Passwort falsch.';
+    document.getElementById('gp').value='';
+  }
+  return false;
+}
 
 /* Storybar */
 const sb=document.getElementById('storybar');
@@ -499,6 +541,7 @@ function step(d){
 }
 
 document.addEventListener('keydown',e=>{
+  if(!authed)return;
   if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();step(1);}
   if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();step(-1);}
   if(e.key==='Home')jump(0);
@@ -544,45 +587,4 @@ function ask(n){
   chat.appendChild(el(`<div class="msg user">${QS[n]}</div>`));scr();
   const t=el('<div class="typing"><i></i><i></i><i></i></div>');
   setTimeout(()=>{chat.appendChild(t);scr();},350);
-  setTimeout(()=>{t.remove();chat.appendChild(el(ANS[n]));scr();
-    if(n===1)document.getElementById('c2').disabled=false;
-    if(n===2)document.getElementById('c3').disabled=false;
-  },n===3?1500:(n===1?1900:1700));
-}
-setInterval(()=>{
-  const a=document.getElementById('tv1'),b=document.getElementById('tv2'),c=document.getElementById('tv3');
-  if(!a)return;
-  a.textContent=(248+Math.floor(Math.random()*5))+" m/min";
-  b.textContent=(184+Math.floor(Math.random()*5))+" bar";
-  c.textContent=(21.2+Math.random()*0.5).toFixed(1).replace('.',',')+" °C";
-},2200);
-
-/* ===== Fleet Intelligence (Schritt 4) ===== */
-const Fleet=(function(){
-  const NS='http://www.w3.org/2000/svg';
-  const FL_NODES=[
-    {x:215,y:150},{x:150,y:240},{x:275,y:235},{x:185,y:330},{x:300,y:350},{x:130,y:355},
-    {x:455,y:110},{x:545,y:120},{x:610,y:165},{x:435,y:175},{x:530,y:185},
-    {x:765,y:175},{x:845,y:215},{x:795,y:305},{x:860,y:345},{x:735,y:360},{x:835,y:145}
-  ];
-  const SENDERS=[0,3,7,9,12,14];
-  const CX=500,CY=300;
-  const cns=document.getElementById('flconns'),nds=document.getElementById('flnodes');
-  FL_NODES.forEach((n,i)=>{
-    const ln=document.createElementNS(NS,'line');
-    ln.setAttribute('x1',n.x);ln.setAttribute('y1',n.y);ln.setAttribute('x2',CX);ln.setAttribute('y2',CY);
-    ln.setAttribute('class','conn');ln.id='flc'+i;cns.appendChild(ln);
-    const g=document.createElementNS(NS,'g');g.setAttribute('class','flnode');g.id='fln'+i;
-    const c=document.createElementNS(NS,'circle');
-    c.setAttribute('cx',n.x);c.setAttribute('cy',n.y);c.setAttribute('r',11);
-    c.style.transitionDelay=(Math.hypot(n.x-CX,n.y-CY)/650).toFixed(2)+'s';
-    g.appendChild(c);nds.appendChild(g);
-  });
-  const capStep=document.getElementById('flcapStep'),capTxt=document.getElementById('flcapTxt');
-  const wave=document.getElementById('flwave'),halo=document.getElementById('flhalo'),core=document.getElementById('flcore');
-  const flstat=document.getElementById('flstat'),flmoat=document.getElementById('flmoat');
-  const CAPS=[
-    ['Ausgangslage','Weltweite Installed Base — jede Anlage sendet Telemetrie.'],
-    ['1 · Signale','Mehrere Standorte melden Auffälligkeiten — Amerika, Europa, Asien.'],
-    ['2 · Erfassen','Anonymisierte Daten fließen aus der Flotte in die Fleet Intelligence.'],
-    ['3 · Verarbeiten','Die Fleet Intelligence analysiert die S
+  se
