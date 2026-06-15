@@ -587,4 +587,84 @@ function ask(n){
   chat.appendChild(el(`<div class="msg user">${QS[n]}</div>`));scr();
   const t=el('<div class="typing"><i></i><i></i><i></i></div>');
   setTimeout(()=>{chat.appendChild(t);scr();},350);
-  se
+  setTimeout(()=>{t.remove();chat.appendChild(el(ANS[n]));scr();
+    if(n===1)document.getElementById('c2').disabled=false;
+    if(n===2)document.getElementById('c3').disabled=false;
+  },n===3?1500:(n===1?1900:1700));
+}
+setInterval(()=>{
+  const a=document.getElementById('tv1'),b=document.getElementById('tv2'),c=document.getElementById('tv3');
+  if(!a)return;
+  a.textContent=(248+Math.floor(Math.random()*5))+" m/min";
+  b.textContent=(184+Math.floor(Math.random()*5))+" bar";
+  c.textContent=(21.2+Math.random()*0.5).toFixed(1).replace('.',',')+" °C";
+},2200);
+
+/* ===== Fleet Intelligence (Schritt 4) ===== */
+const Fleet=(function(){
+  const NS='http://www.w3.org/2000/svg';
+  const FL_NODES=[
+    {x:215,y:150},{x:150,y:240},{x:275,y:235},{x:185,y:330},{x:300,y:350},{x:130,y:355},
+    {x:455,y:110},{x:545,y:120},{x:610,y:165},{x:435,y:175},{x:530,y:185},
+    {x:765,y:175},{x:845,y:215},{x:795,y:305},{x:860,y:345},{x:735,y:360},{x:835,y:145}
+  ];
+  const SENDERS=[0,3,7,9,12,14];
+  const CX=500,CY=300;
+  const cns=document.getElementById('flconns'),nds=document.getElementById('flnodes');
+  FL_NODES.forEach((n,i)=>{
+    const ln=document.createElementNS(NS,'line');
+    ln.setAttribute('x1',n.x);ln.setAttribute('y1',n.y);ln.setAttribute('x2',CX);ln.setAttribute('y2',CY);
+    ln.setAttribute('class','conn');ln.id='flc'+i;cns.appendChild(ln);
+    const g=document.createElementNS(NS,'g');g.setAttribute('class','flnode');g.id='fln'+i;
+    const c=document.createElementNS(NS,'circle');
+    c.setAttribute('cx',n.x);c.setAttribute('cy',n.y);c.setAttribute('r',11);
+    c.style.transitionDelay=(Math.hypot(n.x-CX,n.y-CY)/650).toFixed(2)+'s';
+    g.appendChild(c);nds.appendChild(g);
+  });
+  const capStep=document.getElementById('flcapStep'),capTxt=document.getElementById('flcapTxt');
+  const wave=document.getElementById('flwave'),halo=document.getElementById('flhalo'),core=document.getElementById('flcore');
+  const flstat=document.getElementById('flstat'),flmoat=document.getElementById('flmoat');
+  const CAPS=[
+    ['Ausgangslage','Weltweite Installed Base — jede Anlage sendet Telemetrie.'],
+    ['1 · Signale','Mehrere Standorte melden Auffälligkeiten — Amerika, Europa, Asien.'],
+    ['2 · Erfassen','Anonymisierte Daten fließen aus der Flotte in die Fleet Intelligence.'],
+    ['3 · Verarbeiten','Die Fleet Intelligence analysiert die Signale und destilliert ein Muster.'],
+    ['4 · Ausrollen','Das Update wird an die gesamte globale Flotte ausgerollt.'],
+    ['5 · Wirkung','Jeder gelöste Fall verbessert sofort alle Anlagen — über Nacht, weltweit.'],
+    ['6 · Burggraben','Der Vorsprung wächst mit jeder angebundenen Anlage.']
+  ];
+  const MAX=6;let phase=0;
+  function node(i){return document.getElementById('fln'+i);}
+  function conn(i){return document.getElementById('flc'+i);}
+  function clearAll(){
+    FL_NODES.forEach((n,i)=>node(i).classList.remove('sig','ok'));
+    for(let i=0;i<FL_NODES.length;i++)conn(i).setAttribute('class','conn');
+    core.classList.remove('recv','proc');halo.classList.remove('on');
+    wave.style.opacity=0;flstat.classList.remove('on');flmoat.classList.remove('on');
+  }
+  function render(p){
+    clearAll();
+    capStep.textContent=CAPS[p][0];capTxt.textContent=CAPS[p][1];
+    if(p>=1&&p<=3)SENDERS.forEach(i=>node(i).classList.add('sig'));
+    if(p===2||p===3)SENDERS.forEach(i=>conn(i).setAttribute('class','conn flow'));
+    if(p===2)core.classList.add('recv');
+    if(p===3){core.classList.add('proc');halo.classList.add('on');}
+    if(p>=4){
+      core.classList.add('proc');
+      FL_NODES.forEach((n,i)=>node(i).classList.add('ok'));
+      for(let i=0;i<FL_NODES.length;i++)conn(i).setAttribute('class','conn out');
+    }
+    if(p===4){wave.style.opacity='.7';wave.animate([{r:80,opacity:.7},{r:560,opacity:0}],{duration:1900,easing:'ease-out',fill:'forwards'});}
+    if(p>=5)flstat.classList.add('on');
+    if(p>=6)flmoat.classList.add('on');
+  }
+  return {
+    reset(){phase=0;render(0);},
+    last(){phase=MAX;render(MAX);},
+    next(){if(phase<MAX){phase++;render(phase);return true;}return false;},
+    prev(){if(phase>0){phase--;render(phase);return true;}return false;}
+  };
+})();
+</script>
+</body>
+</html>
