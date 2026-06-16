@@ -3,13 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KI im Service — Impuls T. Stein</title>
+<title>KI im Service — Impuls · Meri</title>
 <style>
   :root{
-    --navy:#1E2761; --deep:#141B45; --panel:#27336E;
-    --paper:#F7F8FC; --card:#FFFFFF; --ink:#23263A; --muted:#6B7280;
-    --accent:#3A4A9F; --ice:#CADCFC; --ok:#2BA84A; --warn:#D97706;
-    --line:#E3E7F2; --tint:#F0F3FC;
+    /* Meri CI — blue primary, green accent (matches logo) */
+    --navy:#123F70; --deep:#0B2C52; --panel:#1B4E86;
+    --paper:#F4F7FB; --card:#FFFFFF; --ink:#1A2433; --muted:#5A6B80;
+    --accent:#15549A; --green:#6CB23E; --mint:#C7E6A8; --ice:#AFCDEC;
+    --ok:#2BA84A; --warn:#D97706;
+    --line:#DBE5F1; --tint:#EAF1FA;
     --mono:"Consolas","Courier New",ui-monospace,monospace;
     --sans:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
     --serif:Cambria,Georgia,"Times New Roman",serif;
@@ -18,15 +20,24 @@
   html,body{height:100%;overflow:hidden}
   body{font-family:var(--sans);color:var(--ink);background:var(--deep)}
 
-  /* ===== Story-Leiste (roter Faden) ===== */
-  .storybar{position:fixed;top:0;left:0;right:0;height:44px;display:flex;align-items:center;justify-content:center;gap:4px;background:rgba(10,14,40,.94);z-index:60}
+  /* ===== Story bar ===== */
+  .storybar{position:fixed;top:0;left:0;right:0;height:44px;display:flex;align-items:center;justify-content:center;gap:4px;background:rgba(11,30,55,.95);z-index:60}
+  .brandmark{position:fixed;left:16px;top:9px;z-index:62;display:flex;align-items:center;gap:8px;pointer-events:none}
+  .brandmark .wm{font-family:var(--sans);font-weight:800;font-size:22px;letter-spacing:.5px;color:#fff}
+  .brandmark .wm span{color:var(--green)}
   .snode{display:flex;align-items:center;gap:4px}
-  .snode .lbl{font-size:13.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#5B66A0;padding:5px 12px;border-radius:99px;cursor:pointer;transition:.2s;white-space:nowrap}
+  .snode .lbl{font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#5E7398;padding:5px 11px;border-radius:99px;cursor:pointer;transition:.2s;white-space:nowrap}
   .snode .lbl:hover{color:#fff}
-  .snode.done .lbl{color:#8A97D9}
+  .snode.done .lbl{color:#8FB0D8}
   .snode.cur .lbl{background:var(--accent);color:#fff}
-  .snode .ln{width:18px;height:1.5px;background:#3A4478}
+  .snode .ln{width:16px;height:1.5px;background:#2A4A74}
   .snode:last-child .ln{display:none}
+
+  /* ===== Language switch ===== */
+  .langsw{position:fixed;right:14px;top:7px;height:30px;z-index:1001;display:flex;align-items:center;gap:4px;background:rgba(11,30,55,.6);padding:0 4px;border-radius:99px;border:1px solid rgba(175,205,236,.25)}
+  .langsw button{border:none;background:transparent;color:#A8C3E0;font-family:var(--sans);font-size:13px;font-weight:700;height:22px;line-height:22px;padding:0 11px;border-radius:99px;cursor:pointer;transition:.15s}
+  .langsw button:hover{color:#fff}
+  .langsw button.on{background:var(--accent);color:#fff}
 
   /* ===== Stage ===== */
   .stage{position:absolute;top:44px;bottom:0;left:0;right:0}
@@ -36,7 +47,7 @@
   section.light{background:var(--paper)}
 
   .eyebrow{font-size:clamp(13px,1.25vw,18px);letter-spacing:3px;text-transform:uppercase;font-weight:800;color:var(--accent)}
-  .dark .eyebrow{color:var(--ice)}
+  .dark .eyebrow{color:var(--mint)}
   h1{font-family:var(--serif);font-weight:800;line-height:1.1;font-size:clamp(42px,5.4vw,76px);margin-top:1.5vh}
   h2{font-family:var(--serif);font-weight:800;line-height:1.12;font-size:clamp(34px,4.4vw,62px);color:var(--navy);margin-top:1vh}
   .dark h2{color:#fff}
@@ -46,17 +57,17 @@
   .frag{opacity:0;transform:translateY(14px);transition:opacity .4s ease,transform .4s ease}
   .frag.on{opacity:1;transform:none}
 
-  /* ===== S1: Frage ===== */
+  /* ===== S1 ===== */
   #s1{justify-content:center}
-  #s1 .q{font-family:var(--serif);font-size:clamp(42px,5.6vw,82px);font-weight:800;line-height:1.15;max-width:1250px}
+  #s1 .q{font-family:var(--serif);font-size:clamp(40px,5.2vw,78px);font-weight:800;line-height:1.15;max-width:1250px}
   #s1 .q em{color:var(--ice);font-style:normal}
   #s1 .ans{margin-top:5vh;font-size:clamp(22px,2.5vw,37px);line-height:1.5;color:var(--ice);max-width:1120px}
   #s1 .ans b{color:#fff}
-  #s1 .byline{position:absolute;bottom:4vh;font-size:16px;color:#7C89C8}
+  #s1 .byline{position:absolute;bottom:4vh;font-size:16px;color:#7E9AC0}
 
-  /* ===== S2: Werkzeug ===== */
+  /* ===== S2 ===== */
   .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8vw;margin-top:5vh;flex:1;align-content:start}
-  .ucard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:3.4vh 1.8vw;box-shadow:0 4px 18px rgba(30,39,97,.08)}
+  .ucard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:3.4vh 1.8vw;box-shadow:0 4px 18px rgba(18,63,112,.08)}
   .num{width:54px;height:54px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:25px;display:flex;align-items:center;justify-content:center}
   .ucard h3{font-size:clamp(21px,2.2vw,31px);color:var(--navy);margin:2.2vh 0 1vh;line-height:1.25}
   .ucard .one{font-size:clamp(16px,1.7vw,23px);color:var(--muted);line-height:1.45}
@@ -66,23 +77,23 @@
 
   /* ===== Demo ===== */
   #sdemo h2{font-size:clamp(26px,2.9vw,40px)}
-  .demoframe{flex:1;min-height:0;display:flex;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 6px 30px rgba(20,27,69,.18);margin-top:2vh;background:#fff}
+  .demoframe{flex:1;min-height:0;display:flex;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 6px 30px rgba(11,44,82,.18);margin-top:2vh;background:#fff}
   .d-side{width:440px;flex-shrink:0;background:var(--deep);color:#fff;padding:20px 20px;display:flex;flex-direction:column;gap:18px;overflow-y:auto}
-  .sec-label{font-size:19px;letter-spacing:1.3px;text-transform:uppercase;color:#8A97D9;font-weight:700}
+  .sec-label{font-size:19px;letter-spacing:1.3px;text-transform:uppercase;color:#8FB0D8;font-weight:700}
   .asset{background:var(--panel);border-radius:9px;padding:10px 11px;margin-top:6px}
   .asset .name{font-size:25px;font-weight:700}
   .asset .subt{font-size:20px;color:var(--ice);margin-top:3px}
   .kv{display:flex;justify-content:space-between;font-size:20px;margin-top:11px}
-  .kv .k{color:#8A97D9}.kv .v{font-family:var(--mono);color:#fff}
+  .kv .k{color:#8FB0D8}.kv .v{font-family:var(--mono);color:#fff}
   .trow{display:flex;align-items:center;gap:7px;background:var(--panel);border-radius:7px;padding:6px 9px;margin-top:6px}
   .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex-shrink:0}
   .dot.warn{background:var(--warn)}
-  .trow .tn{font-size:20px;color:#C7CFF3;flex:1}
+  .trow .tn{font-size:20px;color:#C2D6EE;flex:1}
   .trow .tv{font-family:var(--mono);font-size:20px;color:#fff}
-  .d-hint{font-size:18px;color:#7C89C8;line-height:1.5;margin-top:auto;padding-top:6px}
+  .d-hint{font-size:18px;color:#7E9AC0;line-height:1.5;margin-top:auto;padding-top:6px}
   .d-main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--paper)}
   .d-top{flex-shrink:0;background:var(--navy);color:#fff;display:flex;align-items:center;gap:10px;padding:8px 14px}
-  .d-logo{width:28px;height:28px;border-radius:6px;background:var(--ice);color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
+  .d-logo{width:28px;height:28px;border-radius:6px;background:var(--green);color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
   .d-top h4{font-size:18px;font-weight:600}
   .d-tag{font-size:12px;background:var(--panel);color:var(--ice);padding:3px 8px;border-radius:99px;letter-spacing:.5px;text-transform:uppercase}
   .d-top .du{margin-left:auto;font-size:14px;color:var(--ice)}
@@ -90,13 +101,13 @@
   .msg{max-width:86%;border-radius:11px;padding:15px 20px;font-size:25px;line-height:1.55;animation:pop .25s ease}
   @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
   .msg.user{align-self:flex-end;background:var(--navy);color:#fff;border-bottom-right-radius:3px}
-  .msg.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:3px;box-shadow:0 2px 8px rgba(30,39,97,.05)}
+  .msg.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:3px;box-shadow:0 2px 8px rgba(18,63,112,.05)}
   .msg.bot .head{display:flex;align-items:center;gap:7px;margin-bottom:7px}
   .msg.bot .avatar{width:22px;height:22px;border-radius:5px;background:var(--accent);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center}
   .msg.bot .who{font-size:18px;font-weight:700;color:var(--accent);letter-spacing:.4px}
   .msg.bot b{color:var(--navy)}
   .causes{margin:8px 0 3px;display:flex;flex-direction:column;gap:5px}
-  .cause{display:flex;gap:8px;align-items:flex-start;background:#F4F6FD;border-radius:8px;padding:7px 10px}
+  .cause{display:flex;gap:8px;align-items:flex-start;background:#EFF4FA;border-radius:8px;padding:7px 10px}
   .prob{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--accent);flex-shrink:0;width:50px}
   .cause .ct{font-size:23px;line-height:1.45}
   .cause .ct b{display:block}
@@ -106,10 +117,10 @@
   .part{display:flex;gap:8px;align-items:center;background:#EFF7F1;border:1px solid #CDE7D4;border-radius:8px;padding:13px 15px;margin-top:7px;font-size:23px}
   .part .pid{font-family:var(--mono);font-weight:700;color:#1A7A38}
   .sources{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;padding-top:7px;border-top:1px dashed var(--line)}
-  .src{display:inline-flex;align-items:center;gap:4px;font-size:15.5px;font-family:var(--mono);background:#EEF1FB;color:var(--accent);border:1px solid #D8DEF5;border-radius:99px;padding:5px 11px}
+  .src{display:inline-flex;align-items:center;gap:4px;font-size:15.5px;font-family:var(--mono);background:#EAF1FA;color:var(--accent);border:1px solid #CFE0F2;border-radius:99px;padding:5px 11px}
   .src::before{content:"⛁";font-size:8px}
   .typing{align-self:flex-start;display:flex;gap:4px;padding:11px 14px;background:#fff;border:1px solid var(--line);border-radius:11px;border-bottom-left-radius:3px}
-  .typing i{width:6px;height:6px;border-radius:50%;background:#9AA6D8;animation:blink 1.2s infinite}
+  .typing i{width:6px;height:6px;border-radius:50%;background:#8FA9C8;animation:blink 1.2s infinite}
   .typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
   @keyframes blink{0%,70%,100%{opacity:.25}35%{opacity:1}}
   .d-input{flex-shrink:0;padding:8px 20px 12px}
@@ -118,11 +129,11 @@
   .chip:hover{background:var(--accent);color:#fff}
   .chip:disabled{opacity:.35;cursor:default;pointer-events:none}
 
-  /* ===== S3: Kreislauf / Flywheel ===== */
+  /* ===== S3 Flywheel ===== */
   #s3 .wrap{flex:1;display:flex;gap:4vw;align-items:center;min-height:0}
   .fly{flex-shrink:0;width:min(44vw,56vh);height:min(44vw,56vh);position:relative}
   .fly svg{width:100%;height:100%}
-  .ring{fill:none;stroke:#D7DDF3;stroke-width:3}
+  .ring{fill:none;stroke:#CFE2D6;stroke-width:3}
   .ringflow{fill:none;stroke:var(--accent);stroke-width:3.5;stroke-dasharray:26 18;opacity:0;transition:opacity .5s}
   .fly.spin .ringflow{opacity:1;animation:spin 9s linear infinite}
   @keyframes spin{to{stroke-dashoffset:-440}}
@@ -132,7 +143,6 @@
   .fnode.core circle{fill:var(--navy);stroke:var(--navy)}
   .fnode text{font-family:var(--sans);font-size:15px;font-weight:700;fill:var(--navy);text-anchor:middle}
   .fnode.core text{fill:#fff;font-size:16px}
-  .fnode .sub2{font-size:9.5px;font-weight:500;fill:var(--muted)}
   .fly .corelabel{font-family:var(--serif)}
   #s3 .legend{flex:1;display:flex;flex-direction:column;gap:2.6vh}
   .lrow{display:flex;gap:1.2vw;align-items:flex-start}
@@ -142,7 +152,7 @@
   .lock{margin-top:1vh;padding:1.8vh 1.6vw;background:var(--navy);border-radius:13px;color:#fff;font-size:clamp(16px,1.7vw,23px);line-height:1.45}
   .lock b{color:var(--ice)}
 
-  /* ===== S-FLEET: Globaler Kreislauf ===== */
+  /* ===== Fleet ===== */
   #sfleet{justify-content:flex-start}
   .zb{display:inline-block;margin-left:10px;background:var(--ice);color:var(--navy);font-size:12px;font-weight:800;letter-spacing:1.5px;padding:4px 11px;border-radius:99px;vertical-align:middle}
   .flwrap{flex:1;display:flex;gap:2vw;align-items:center;min-height:0;margin-top:2vh}
@@ -155,24 +165,24 @@
   .flstat{display:flex;flex-direction:column;align-items:flex-start;gap:.6vh;background:var(--deep);border-radius:14px;padding:2vh 1.4vw;opacity:.25;transition:.5s}
   .flstat.on{opacity:1}
   .flstat .big{font-family:var(--serif);font-size:clamp(34px,3.6vw,54px);font-weight:800;color:var(--ice);white-space:nowrap}
-  .flstat .lbl{font-size:clamp(14px,1.4vw,19px);line-height:1.35;color:#C7CFF3}
+  .flstat .lbl{font-size:clamp(14px,1.4vw,19px);line-height:1.35;color:#C2D6EE}
   .flmoat{background:#fff;color:var(--navy);border-radius:14px;padding:2vh 1.4vw;font-size:clamp(15px,1.55vw,21px);line-height:1.4;opacity:.2;transform:translateY(8px);transition:.5s}
   .flmoat.on{opacity:1;transform:none}
   .flmoat b{color:var(--accent)}
-  .flfed{font-size:clamp(13px,1.3vw,17px);color:#8A97D9;line-height:1.5}
+  .flfed{font-size:clamp(13px,1.3vw,17px);color:#8FB0D8;line-height:1.5}
   .flfed b{color:var(--ice)}
-  .conn{stroke:#3A4478;stroke-width:1.4;fill:none;opacity:.3;transition:opacity .5s}
-  .conn.flow{stroke:#CADCFC;stroke-width:2.6;opacity:.95;stroke-dasharray:7 11;animation:flowin 1.1s linear infinite}
+  .conn{stroke:#2A4A74;stroke-width:1.4;fill:none;opacity:.3;transition:opacity .5s}
+  .conn.flow{stroke:#BFD6EE;stroke-width:2.6;opacity:.95;stroke-dasharray:7 11;animation:flowin 1.1s linear infinite}
   .conn.out{stroke:#8FE3AC;stroke-width:2.6;opacity:.95;stroke-dasharray:7 11;animation:flowout 1.1s linear infinite}
   @keyframes flowin{to{stroke-dashoffset:-36}}
   @keyframes flowout{to{stroke-dashoffset:36}}
-  .flnode circle{fill:#27336E;stroke:#CADCFC;stroke-width:2;transition:fill .55s ease, stroke .55s ease, stroke-width .3s ease}
+  .flnode circle{fill:#1B4E86;stroke:#BFD6EE;stroke-width:2;transition:fill .55s ease, stroke .55s ease, stroke-width .3s ease}
   .flnode.sig circle{fill:#D97706;stroke:#FFD9A0;animation:sigpulse 1.4s ease-in-out infinite}
   .flnode.ok circle{fill:#2BA84A;stroke:#A8E0B6}
   @keyframes sigpulse{0%,100%{stroke-width:2.5}50%{stroke-width:6}}
   .flcore #fleos{transition:fill .5s ease, stroke-width .4s ease}
   .flcore.recv #fleos{stroke-width:4}
-  .flcore.proc #fleos{fill:#3A4A9F;stroke-width:6}
+  .flcore.proc #fleos{fill:#6CB23E;stroke-width:6}
   .flhalo{transition:opacity .4s}
   .flhalo.on{animation:halopulse 1.7s ease-in-out infinite}
   @keyframes halopulse{0%,100%{opacity:.12}50%{opacity:.55}}
@@ -180,7 +190,7 @@
   .flcore text{font-family:var(--serif);fill:#fff;text-anchor:middle;font-weight:800}
   .wave{fill:none;stroke:var(--ice);stroke-width:3;opacity:0}
 
-  /* ===== S4: Modell ===== */
+  /* ===== S4 ===== */
   .stufen{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8vw;margin-top:4.5vh}
   .scard{border-radius:16px;padding:3vh 1.7vw;background:var(--tint)}
   .scard.hl{background:var(--navy);color:#fff}
@@ -195,148 +205,153 @@
   .pilot .pt{font-size:clamp(16px,1.7vw,23px);line-height:1.5}
   .pilot .pt b{color:var(--ice)}
 
-  /* ===== S5: Antwort ===== */
+  /* ===== S5 ===== */
   #s5{justify-content:center}
-  #s5 .qecho{font-size:clamp(18px,1.9vw,25px);color:#7C89C8;margin-top:1.5vh;font-style:italic}
+  #s5 .qecho{font-size:clamp(18px,1.9vw,25px);color:#7E9AC0;margin-top:1.5vh;font-style:italic}
   .assets{display:grid;grid-template-columns:1fr 1fr;gap:1.5vw;margin-top:3.4vh;max-width:1200px}
-  .acard{background:var(--panel);border-radius:16px;padding:2.7vh 1.9vw;display:flex;flex-direction:column;gap:.7vh;box-shadow:0 6px 22px rgba(10,14,40,.28);border-left:5px solid var(--ice)}
+  .acard{background:var(--panel);border-radius:16px;padding:2.7vh 1.9vw;display:flex;flex-direction:column;gap:.7vh;box-shadow:0 6px 22px rgba(11,30,55,.28);border-left:5px solid var(--ice)}
   .acard .anum{width:44px;height:44px;border-radius:11px;background:var(--accent);color:#fff;font-weight:800;font-size:19px;display:flex;align-items:center;justify-content:center;font-family:var(--serif)}
   .acard .at{font-size:clamp(18px,1.8vw,25px);font-weight:700;color:#fff;line-height:1.2;margin-top:.9vh}
-  .acard .as{font-size:clamp(13px,1.3vw,17px);color:#C7CFF3;line-height:1.45}
+  .acard .as{font-size:clamp(13px,1.3vw,17px);color:#C2D6EE;line-height:1.45}
   #s5 .close{margin-top:3.4vh;font-family:var(--serif);font-size:clamp(23px,2.6vw,36px);color:var(--ice);line-height:1.45;max-width:1200px}
   #s5 .close b{color:#fff}
 
-  /* Nav arrows + counter */
-  .arrow{position:fixed;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:none;background:rgba(30,39,97,.15);color:var(--navy);font-size:18px;cursor:pointer;z-index:40;transition:.15s}
+  /* Nav */
+  .arrow{position:fixed;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:none;background:rgba(18,63,112,.15);color:var(--navy);font-size:18px;cursor:pointer;z-index:40;transition:.15s}
   .dark-mode .arrow{background:rgba(255,255,255,.12);color:#fff}
   .arrow:hover{background:var(--accent);color:#fff}
   .arrow.prev{left:12px}.arrow.next{right:12px}
-  .counter{position:fixed;bottom:14px;right:18px;font-family:var(--mono);font-size:14px;color:#8A97D9;z-index:50}
+  .counter{position:fixed;bottom:14px;right:18px;font-family:var(--mono);font-size:14px;color:#8FB0D8;z-index:50}
 
   @media (max-width:880px){.cards3,.stufen,.assets{grid-template-columns:1fr}.d-side{display:none}#s3 .wrap,.flwrap{flex-direction:column}.lrow p{max-width:none}}
 
-  /* ===== Login-Gate ===== */
+  /* ===== Login Gate ===== */
   .gate{position:fixed;inset:0;z-index:999;background:var(--deep);display:flex;align-items:center;justify-content:center}
   .gate.hidden{display:none}
-  .gatecard{background:var(--navy);border:1px solid #2C3670;border-radius:18px;padding:46px 40px;width:min(440px,88vw);box-shadow:0 24px 70px rgba(0,0,0,.45)}
-  .gatecard .eg{font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:800;color:var(--ice)}
-  .gatecard h3{font-family:var(--serif);color:#fff;font-size:30px;font-weight:800;margin:8px 0 6px;line-height:1.15}
-  .gatecard .sub{color:#8A97D9;font-size:15px;margin-bottom:28px;line-height:1.45}
+  .gatecard{background:var(--navy);border:1px solid #1B4E86;border-radius:18px;padding:46px 40px;width:min(440px,88vw);box-shadow:0 24px 70px rgba(0,0,0,.45)}
+  .gatecard .brand{font-family:var(--sans);font-weight:800;font-size:30px;letter-spacing:.5px;color:#fff;margin-bottom:2px}
+  .gatecard .brand span{color:var(--green)}
+  .gatecard .eg{font-size:12px;letter-spacing:3px;text-transform:uppercase;font-weight:800;color:var(--mint);margin-top:10px}
+  .gatecard h3{font-family:var(--serif);color:#fff;font-size:28px;font-weight:800;margin:8px 0 6px;line-height:1.15}
+  .gatecard .sub{color:#8FB0D8;font-size:15px;margin-bottom:28px;line-height:1.45}
   .gate label{display:block;color:var(--ice);font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin:0 0 7px}
-  .gate input{width:100%;padding:13px 15px;border-radius:11px;border:1px solid #2C3670;background:#1A2050;color:#fff;font-size:17px;font-family:var(--sans);margin-bottom:20px}
+  .gate input{width:100%;padding:13px 15px;border-radius:11px;border:1px solid #1B4E86;background:#0E335E;color:#fff;font-size:17px;font-family:var(--sans);margin-bottom:20px}
   .gate input:focus{outline:none;border-color:var(--ice)}
   .gate button{width:100%;padding:14px;border:none;border-radius:11px;background:var(--accent);color:#fff;font-size:17px;font-weight:700;cursor:pointer;font-family:var(--sans);transition:.15s}
-  .gate button:hover{background:#4A5BB8}
+  .gate button:hover{background:#1A6BB5}
   .gate .err{color:#FF9B9B;font-size:14px;min-height:20px;margin-top:14px;text-align:center}
 </style>
 </head>
 <body class="dark-mode">
 
+<div class="langsw" id="langsw">
+  <button data-lang="de" class="on" onclick="setLang('de')">DE</button>
+  <button data-lang="en" onclick="setLang('en')">EN</button>
+  <button data-lang="zh" onclick="setLang('zh')">中文</button>
+</div>
+
 <div class="gate" id="gate">
   <form class="gatecard" id="gateform" onsubmit="return doLogin(event)">
-    <div class="eg">KI im Service · Impuls</div>
-    <h3>Anmeldung erforderlich</h3>
-    <div class="sub">Bitte melde dich an, um die Präsentation zu öffnen.</div>
-    <label for="gu">Benutzername</label>
+    <div class="brand">meri<span>.</span></div>
+    <div class="eg" data-i18n="gate.eyebrow">KI im Service · Impuls</div>
+    <h3 data-i18n="gate.title">Anmeldung erforderlich</h3>
+    <div class="sub" data-i18n="gate.sub">Bitte melde dich an, um die Präsentation zu öffnen.</div>
+    <label for="gu" data-i18n="gate.user">Benutzername</label>
     <input id="gu" type="text" autocomplete="off" autofocus>
-    <label for="gp">Passwort</label>
+    <label for="gp" data-i18n="gate.pass">Passwort</label>
     <input id="gp" type="password" autocomplete="off">
-    <button type="submit">Anmelden</button>
+    <button type="submit" data-i18n="gate.btn">Anmelden</button>
     <div class="err" id="gerr"></div>
   </form>
 </div>
 
+<div class="brandmark"><span class="wm">meri<span>.</span></span></div>
 <div class="storybar" id="storybar"></div>
 
 <div class="stage">
 
-  <!-- 1: FRAGE -->
+  <!-- 1: QUESTION -->
   <section id="s1" class="dark active">
-    <div class="eyebrow">Impuls · KI im Service · Tobias Stein</div>
-    <div class="q">Ein internationaler Schlüsselkunde hat auch wegen unserer <em>KI-Idee</em> gekauft.<br>Wie lösen wir das Versprechen ein — und halten die Nase vorn?</div>
-    <div class="ans frag">Meine These: <b>Nicht durch die beste KI.</b> Die kann jeder kaufen.<br>Sondern durch das, was nur wir haben: <b>sechs Jahrzehnte Servicewissen</b> — maschinenlesbar gemacht.</div>
-    <div class="byline">15.06.2026 · Pfeiltaste → für nächsten Schritt</div>
+    <div class="eyebrow" data-i18n="s1.eyebrow">Impuls · KI im Service · Tobias Stein</div>
+    <div class="q" data-i18n="s1.q"></div>
+    <div class="ans frag" data-i18n="s1.ans"></div>
+    <div class="byline" data-i18n="s1.byline"></div>
   </section>
 
-  <!-- 2: WERKZEUG -->
+  <!-- 2: TOOL -->
   <section id="s2" class="light">
-    <div class="eyebrow">Schritt 1 · Das Werkzeug — in 12 Monaten machbar</div>
-    <h2>Drei Use Cases. Ein Jahr.</h2>
+    <div class="eyebrow" data-i18n="s2.eyebrow"></div>
+    <h2 data-i18n="s2.h2"></h2>
     <div class="cards3">
       <div class="ucard frag">
         <div class="num">1</div>
-        <h3>Service-Copilot</h3>
-        <div class="one">Antwortet aus Doku &amp; Historie — mit Quelle. Macht US-Techniker schneller CSC-fähig.</div>
+        <h3 data-i18n="s2.c1t"></h3>
+        <div class="one" data-i18n="s2.c1p"></div>
       </div>
       <div class="ucard frag">
         <div class="num">2</div>
-        <h3>Berichte per Diktat</h3>
-        <div class="one">30–60 Min pro Einsatz gespart. Jeder Bericht füttert die Wissensbasis.</div>
+        <h3 data-i18n="s2.c2t"></h3>
+        <div class="one" data-i18n="s2.c2p"></div>
       </div>
       <div class="ucard frag">
         <div class="num">3</div>
-        <h3>Ersatzteil per Foto</h3>
-        <div class="one">Foto → Stückliste → Bestellung. Schnellerer Umsatz.</div>
+        <h3 data-i18n="s2.c3t"></h3>
+        <div class="one" data-i18n="s2.c3p"></div>
       </div>
     </div>
     <div class="bigfact frag">
       <div class="pct">70 %</div>
-      <div class="txt">des Projekts ist <b>Datenarbeit</b>, nicht KI.<br>Und: Die KI assistiert — <b>die Entscheidung trifft der Techniker.</b></div>
+      <div class="txt" data-i18n="s2.fact"></div>
     </div>
   </section>
 
-  <!-- 3: BEWEIS (Demo) -->
+  <!-- 3: PROOF (Demo) -->
   <section id="sdemo" class="light">
-    <div class="eyebrow">Schritt 2 · Der Beweis — Prototyp, am Wochenende skizziert</div>
-    <h2>So fühlt sich das für den Techniker an</h2>
+    <div class="eyebrow" data-i18n="demo.eyebrow"></div>
+    <h2 data-i18n="demo.h2"></h2>
     <div class="demoframe">
       <div class="d-side">
         <div>
-          <div class="sec-label">Anlagenkontext</div>
+          <div class="sec-label" data-i18n="demo.ctxlabel"></div>
           <div class="asset">
-            <div class="name">EVEREX Wide CPP</div>
-            <div class="subt">Gießfolienlinie · CPP · 3,3 m</div>
-            <div class="kv"><span class="k">Kunde</span><span class="v">Schlüsselkunde A</span></div>
-            <div class="kv"><span class="k">Anlage</span><span class="v">3 von 8</span></div>
-            <div class="kv"><span class="k">Betriebsstunden</span><span class="v">1.842 h</span></div>
-            <div class="kv"><span class="k">Letzte Wartung</span><span class="v">28.05.2026</span></div>
+            <div class="name">LION Shredder</div>
+            <div class="subt" data-i18n="demo.assetsub"></div>
+            <div class="kv"><span class="k" data-i18n="demo.kvCustomerK"></span><span class="v" data-i18n="demo.kvCustomerV"></span></div>
+            <div class="kv"><span class="k" data-i18n="demo.kvUnitK"></span><span class="v" data-i18n="demo.kvUnitV"></span></div>
+            <div class="kv"><span class="k" data-i18n="demo.kvHoursK"></span><span class="v" data-i18n="demo.kvHoursV"></span></div>
+            <div class="kv"><span class="k" data-i18n="demo.kvMaintK"></span><span class="v" data-i18n="demo.kvMaintV"></span></div>
           </div>
         </div>
         <div>
-          <div class="sec-label">Telemetrie · live</div>
-          <div class="trow"><span class="dot"></span><span class="tn">Liniengeschw.</span><span class="tv" id="tv1">250 m/min</span></div>
-          <div class="trow"><span class="dot"></span><span class="tn">Schmelzedruck</span><span class="tv" id="tv2">186 bar</span></div>
-          <div class="trow"><span class="dot warn"></span><span class="tn">Dickentoleranz Mitte</span><span class="tv">±4,1 µm</span></div>
-          <div class="trow"><span class="dot"></span><span class="tn">Chill-Roll Vorlauf</span><span class="tv" id="tv3">21,4 °C</span></div>
+          <div class="sec-label" data-i18n="demo.telemlabel"></div>
+          <div class="trow"><span class="dot"></span><span class="tn" data-i18n="demo.t1"></span><span class="tv" id="tv1">16,8 rpm</span></div>
+          <div class="trow"><span class="dot"></span><span class="tn" data-i18n="demo.t2"></span><span class="tv" id="tv2">244 bar</span></div>
+          <div class="trow"><span class="dot warn"></span><span class="tn" data-i18n="demo.t3"></span><span class="tv">±14 %</span></div>
+          <div class="trow"><span class="dot"></span><span class="tn" data-i18n="demo.t4"></span><span class="tv" id="tv3">48,2 °C</span></div>
         </div>
-        <div class="d-hint">Wissensbasis: 1.450 Serviceberichte · 240 Handbücher &amp; Schaltpläne · Stücklisten · Telemetrie.<br><br>Demo-Daten, geskriptet.</div>
+        <div class="d-hint" data-i18n="demo.hint"></div>
       </div>
       <div class="d-main">
         <div class="d-top">
-          <div class="d-logo">CSC</div><h4>Service-Copilot</h4><span class="d-tag">Prototyp</span>
-          <div class="du">Servicetechniker vor Ort · Servicepartner (anonymisiert)</div>
+          <div class="d-logo">M</div><h4 data-i18n="demo.toptitle"></h4><span class="d-tag" data-i18n="demo.toptag"></span>
+          <div class="du" data-i18n="demo.topuser"></div>
         </div>
-        <div class="chat" id="chat">
-          <div class="msg bot">
-            <div class="head"><div class="avatar">AI</div><div class="who">CSC SERVICE-COPILOT</div></div>
-            Guten Morgen. Aktive Warnung an <b>EVEREX Wide CPP, Linie 3</b>: periodische Dickenschwankung ±4 µm in Bahnmitte seit dem Walzenwechsel am 28.05. Womit kann ich unterstützen?
-          </div>
-        </div>
+        <div class="chat" id="chat"></div>
         <div class="d-input">
           <div class="chips">
-            <button class="chip" id="c1" onclick="ask(1)">Bekannte Ursachen?</button>
-            <button class="chip" id="c2" onclick="ask(2)" disabled>Zeig mir die PAM-Kalibrierprozedur</button>
-            <button class="chip" id="c3" onclick="ask(3)" disabled>Ja, bitte anfragen</button>
+            <button class="chip" id="c1" onclick="ask(1)" data-i18n="demo.chip1"></button>
+            <button class="chip" id="c2" onclick="ask(2)" disabled data-i18n="demo.chip2"></button>
+            <button class="chip" id="c3" onclick="ask(3)" disabled data-i18n="demo.chip3"></button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 4: KREISLAUF -->
+  <!-- 4: FLYWHEEL -->
   <section id="s3" class="light">
-    <div class="eyebrow">Schritt 3 · Der Kreislauf pro Kunde — Horizont 3 Jahre</div>
-    <h2>Jeder Servicefall macht das System besser</h2>
+    <div class="eyebrow" data-i18n="s3.eyebrow"></div>
+    <h2 data-i18n="s3.h2"></h2>
     <div class="wrap">
       <div class="fly" id="fly">
         <svg viewBox="0 0 360 360">
@@ -344,116 +359,116 @@
           <circle class="ringflow" cx="180" cy="180" r="118"/>
           <g class="fnode" id="f1">
             <circle cx="180" cy="56" r="54"/>
-            <text x="180" y="62">Servicefall</text>
+            <text x="180" y="62" data-i18n="s3.n1"></text>
           </g>
           <g class="fnode" id="f2">
             <circle cx="295" cy="240" r="54"/>
-            <text x="295" y="246">Wissensbasis</text>
+            <text x="295" y="246" data-i18n="s3.n2"></text>
           </g>
           <g class="fnode" id="f3">
             <circle cx="65" cy="240" r="54"/>
-            <text x="65" y="246">Copilot</text>
+            <text x="65" y="246" data-i18n="s3.n3"></text>
           </g>
           <g class="fnode core" id="f0">
             <circle cx="180" cy="180" r="58"/>
-            <text x="180" y="176" class="corelabel">Installed</text>
-            <text x="180" y="197" class="corelabel">Base</text>
+            <text x="180" y="176" class="corelabel" data-i18n="s3.core1"></text>
+            <text x="180" y="197" class="corelabel" data-i18n="s3.core2"></text>
           </g>
         </svg>
       </div>
       <div class="legend">
         <div class="lrow frag" data-fly="f1"><div class="lnum">1</div><div>
-          <h3>Copilot mit Anlagenkontext</h3>
-          <p>Kennt nicht das Handbuch — kennt <b>diese</b> Anlage. Live-Telemetrie inklusive.</p>
+          <h3 data-i18n="s3.l1h"></h3>
+          <p data-i18n="s3.l1p"></p>
         </div></div>
         <div class="lrow frag" data-fly="f2"><div class="lnum">2</div><div>
-          <h3>Kunden-Self-Service, 24/7</h3>
-          <p>Mehrsprachig im Portal. Löst USA &amp; Zeitzonen.</p>
+          <h3 data-i18n="s3.l2h"></h3>
+          <p data-i18n="s3.l2p"></p>
         </div></div>
         <div class="lrow frag" data-fly="f3" data-spin="1"><div class="lnum">3</div><div>
-          <h3>Das Flywheel dreht</h3>
-          <p>Je größer die angebundene Installed Base, desto besser das System.</p>
+          <h3 data-i18n="s3.l3h"></h3>
+          <p data-i18n="s3.l3p"></p>
         </div></div>
-        <div class="lock frag">Ohne vergleichbare Installed Base <b>nicht kopierbar</b> — in vergleichbaren Referenzprojekten: Portal + Digital Twin → <b>zweistelliger Serviceumsatz-Zuwachs</b>.</div>
+        <div class="lock frag" data-i18n="s3.lock"></div>
       </div>
     </div>
   </section>
 
-  <!-- 5: GLOBALER KREISLAUF / FLEET INTELLIGENCE -->
+  <!-- 5: GLOBAL FLEET -->
   <section id="sfleet" class="dark">
-    <div class="eyebrow">Schritt 4 · Vom einzelnen Loop zum globalen Kreislauf <span class="zb">Zielbild · Horizont 3 Jahre</span></div>
-    <h2>Eine Anlage löst — <em>die ganze Flotte lernt mit.</em></h2>
+    <div class="eyebrow" data-i18n="fleet.eyebrow"></div>
+    <h2 data-i18n="fleet.h2"></h2>
     <div class="flwrap">
       <div class="flscene">
         <svg viewBox="0 0 1000 560" id="flsvg">
-          <text class="region" x="190" y="60" text-anchor="middle">Amerika</text>
-          <text class="region" x="510" y="48" text-anchor="middle">Europa</text>
-          <text class="region" x="815" y="60" text-anchor="middle">Asien · Pazifik</text>
+          <text class="region" x="190" y="60" text-anchor="middle" data-i18n="fleet.rAmerica"></text>
+          <text class="region" x="510" y="48" text-anchor="middle" data-i18n="fleet.rEurope"></text>
+          <text class="region" x="815" y="60" text-anchor="middle" data-i18n="fleet.rAsia"></text>
           <g id="flconns"></g>
           <circle class="wave" id="flwave" cx="500" cy="300" r="80"/>
-          <circle class="flhalo" id="flhalo" cx="500" cy="300" r="78" fill="none" stroke="#CADCFC" stroke-width="2.5" opacity="0"/>
+          <circle class="flhalo" id="flhalo" cx="500" cy="300" r="78" fill="none" stroke="#BFD6EE" stroke-width="2.5" opacity="0"/>
           <g class="flnode flcore" id="flcore">
-            <circle id="fleos" cx="500" cy="300" r="64" fill="#141B45" stroke="#CADCFC" stroke-width="2.5"/>
-            <text x="500" y="295" font-size="16">Fleet</text>
-            <text x="500" y="316" font-size="16">Intelligence</text>
+            <circle id="fleos" cx="500" cy="300" r="64" fill="#072A20" stroke="#BFD6EE" stroke-width="2.5"/>
+            <text x="500" y="295" font-size="16" data-i18n="fleet.core1"></text>
+            <text x="500" y="316" font-size="16" data-i18n="fleet.core2"></text>
           </g>
           <g id="flnodes"></g>
         </svg>
       </div>
       <div class="flside">
         <div class="flcap">
-          <div class="step" id="flcapStep">Ausgangslage</div>
-          <div class="txt" id="flcapTxt">Weltweite Installed Base — jede Anlage sendet Telemetrie.</div>
+          <div class="step" id="flcapStep"></div>
+          <div class="txt" id="flcapTxt"></div>
         </div>
         <div class="flstat" id="flstat">
-          <div class="big">1 → alle</div>
-          <div class="lbl">Eine Anlage löst — die ganze Flotte profitiert.</div>
+          <div class="big" data-i18n="fleet.statBig"></div>
+          <div class="lbl" data-i18n="fleet.statLbl"></div>
         </div>
-        <div class="flmoat" id="flmoat">Nicht kopierbar: <b>Je größer die Flotte, desto schneller lernt jede einzelne Anlage.</b> Skala wird zum Vorsprung.</div>
-        <div class="flfed">Federated: <b>Rohdaten bleiben beim Kunden</b> — nur das anonymisierte Muster reist.</div>
+        <div class="flmoat" id="flmoat" data-i18n="fleet.moat"></div>
+        <div class="flfed" data-i18n="fleet.fed"></div>
       </div>
     </div>
   </section>
 
-  <!-- 6: MODELL -->
+  <!-- 6: MODEL -->
   <section id="s4" class="light">
-    <div class="eyebrow">Schritt 5 · Das Geschäftsmodell — groß gedacht</div>
-    <h2>Vom Werkzeug zum Erlösmodell</h2>
+    <div class="eyebrow" data-i18n="s4.eyebrow"></div>
+    <h2 data-i18n="s4.h2"></h2>
     <div class="stufen">
       <div class="scard frag">
-        <div class="slabel">Stufe 1</div>
-        <h3>Verfügbarkeit verkaufen</h3>
-        <div class="one">Servicevertrag auf Anlagenverfügbarkeit. Wiederkehrend, zyklusresistent.</div>
+        <div class="slabel" data-i18n="s4.s1label"></div>
+        <h3 data-i18n="s4.s1h"></h3>
+        <div class="one" data-i18n="s4.s1p"></div>
       </div>
       <div class="scard frag">
-        <div class="slabel">Stufe 2</div>
-        <h3>Bediener-Copilot beim Kunden</h3>
-        <div class="one">Antwort auf seinen Fachkräftemangel. Dafür zahlt er.</div>
+        <div class="slabel" data-i18n="s4.s2label"></div>
+        <h3 data-i18n="s4.s2h"></h3>
+        <div class="one" data-i18n="s4.s2p"></div>
       </div>
       <div class="scard hl frag">
-        <div class="slabel">Stufe 3</div>
-        <h3>Daten als R&amp;D-Kompass</h3>
-        <div class="one">Wir entwickeln dorthin, wo der Schmerz real ist.</div>
+        <div class="slabel" data-i18n="s4.s3label"></div>
+        <h3 data-i18n="s4.s3h"></h3>
+        <div class="one" data-i18n="s4.s3p"></div>
       </div>
     </div>
     <div class="pilot frag">
-      <div class="big">90 Tage</div>
-      <div class="pt"><b>Pilot auf den 8 Anlagen eines internationalen Schlüsselkunden.</b> Team: 2–3 Personen in der BU, Plattform über Reifenhäuser NEXT. Dort beweist der Copilot seinen Wert — und der Kunde sieht das KI-Versprechen eingelöst.</div>
+      <div class="big" data-i18n="s4.pilotBig"></div>
+      <div class="pt" data-i18n="s4.pilotTxt"></div>
     </div>
   </section>
 
-  <!-- 7: ANTWORT -->
+  <!-- 7: ANSWER -->
   <section id="s5" class="dark">
-    <div class="eyebrow">Schritt 6 · Die Antwort</div>
-    <h2>Wie halten wir die Nase vorn?</h2>
-    <div class="qecho">— die Frage vom Anfang. Verteidigbar ist nur, was keiner kopieren kann:</div>
+    <div class="eyebrow" data-i18n="s5.eyebrow"></div>
+    <h2 data-i18n="s5.h2"></h2>
+    <div class="qecho" data-i18n="s5.qecho"></div>
     <div class="assets">
-      <div class="acard frag"><div class="anum">01</div><div class="at">Die eigenen Daten</div><div class="as">Telemetrie und Servicehistorie, die nur uns gehören.</div></div>
-      <div class="acard frag"><div class="anum">02</div><div class="at">Das Wissen der Mannschaft</div><div class="as">Sechs Jahrzehnte Erfahrung — maschinenlesbar gemacht.</div></div>
-      <div class="acard frag"><div class="anum">03</div><div class="at">Integration in reale Prozesse</div><div class="as">Fest verankert im Workflow von Technik und Betrieb.</div></div>
-      <div class="acard frag"><div class="anum">04</div><div class="at">Installed Base aus 6 Jahrzehnten</div><div class="as">Reichweite, die kein Wettbewerber kurzfristig aufholt.</div></div>
+      <div class="acard frag"><div class="anum">01</div><div class="at" data-i18n="s5.a1t"></div><div class="as" data-i18n="s5.a1s"></div></div>
+      <div class="acard frag"><div class="anum">02</div><div class="at" data-i18n="s5.a2t"></div><div class="as" data-i18n="s5.a2s"></div></div>
+      <div class="acard frag"><div class="anum">03</div><div class="at" data-i18n="s5.a3t"></div><div class="as" data-i18n="s5.a3s"></div></div>
+      <div class="acard frag"><div class="anum">04</div><div class="at" data-i18n="s5.a4t"></div><div class="as" data-i18n="s5.a4s"></div></div>
     </div>
-    <div class="close frag">Die Nase vorn behält, wer sein <b>Problemverständnis</b> am schnellsten in Daten und Workflows übersetzt.<br><b>Dort würde ich ansetzen.</b></div>
+    <div class="close frag" data-i18n="s5.close"></div>
   </section>
 
 </div>
@@ -463,32 +478,289 @@
 <button class="arrow next" onclick="step(1)">→</button>
 
 <script>
+/* ============ i18n dictionary ============ */
+const I18N = {
+de:{
+ "gate.eyebrow":"KI im Service · Impuls",
+ "gate.title":"Anmeldung erforderlich",
+ "gate.sub":"Bitte melde dich an, um die Präsentation zu öffnen.",
+ "gate.user":"Benutzername","gate.pass":"Passwort","gate.btn":"Anmelden",
+ "gate.err":"Benutzername oder Passwort falsch.",
+ "nav.0":"Frage","nav.1":"Werkzeug","nav.2":"Beweis","nav.3":"Kreislauf","nav.4":"Flotte","nav.5":"Modell","nav.6":"Antwort",
+ "s1.eyebrow":"Impuls · KI im Service · Tobias Stein",
+ "s1.q":"KI ist im Industrieservice angekommen — Kunden erwarten sie, Wettbewerber kündigen sie an.<br>Wie lösen wir das Versprechen ein — und <em>bleiben vorn</em>?",
+ "s1.ans":"Meine These: <b>Nicht durch die beste KI.</b> Die kann jeder kaufen.<br>Sondern durch das, was nur wir haben: <b>über drei Jahrzehnte Servicewissen aus 5.000+ Maschinen</b> — maschinenlesbar gemacht.",
+ "s1.byline":"15.06.2026 · Pfeiltaste → für den nächsten Schritt",
+ "s2.eyebrow":"Schritt 1 · Das Werkzeug — in 12 Monaten machbar",
+ "s2.h2":"Drei Use Cases. Ein Jahr.",
+ "s2.c1t":"Service-Copilot","s2.c1p":"Antwortet aus Doku & Servicehistorie — mit Quelle. Macht Servicepartner weltweit schneller einsatzfähig.",
+ "s2.c2t":"Berichte per Diktat","s2.c2p":"30–60 Min pro Einsatz gespart. Jeder Bericht füttert die Wissensbasis.",
+ "s2.c3t":"Ersatzteil per Foto","s2.c3p":"Foto → Stückliste → Bestellung. Schnellerer Umsatz.",
+ "s2.fact":"des Projekts ist <b>Datenarbeit</b>, nicht KI.<br>Und: Die KI assistiert — <b>die Entscheidung trifft der Techniker.</b>",
+ "demo.eyebrow":"Schritt 2 · Der Beweis — Prototyp, am Wochenende skizziert",
+ "demo.h2":"So fühlt sich das für den Techniker an",
+ "demo.ctxlabel":"Anlagenkontext",
+ "demo.assetsub":"Reject-Shredder · Doppelwelle · hydraulisch",
+ "demo.kvCustomerK":"Kunde","demo.kvCustomerV":"Schlüsselkunde A",
+ "demo.kvUnitK":"Anlage","demo.kvUnitV":"Linie 2 von 4",
+ "demo.kvHoursK":"Messer-Standzeit","demo.kvHoursV":"15.320 h",
+ "demo.kvMaintK":"Letzter Service","demo.kvMaintV":"28.05.2026",
+ "demo.telemlabel":"Telemetrie · live",
+ "demo.t1":"Drehzahl","demo.t2":"Hydraulikdruck","demo.t3":"Drehmoment-Spitzen Welle 1","demo.t4":"Hydrauliköl-Temp.",
+ "demo.hint":"Wissensbasis: 1.450 Serviceberichte · 240 Handbücher & Schaltpläne · Stücklisten · Telemetrie.<br><br>Demo-Daten, geskriptet.",
+ "demo.toptitle":"Service-Copilot","demo.toptag":"Prototyp",
+ "demo.topuser":"Servicetechniker vor Ort · Servicepartner (anonymisiert)",
+ "demo.greeting":"Guten Morgen. Aktive Warnung an <b>LION Shredder, Linie 2</b>: periodische Drehmoment-Spitzen auf Welle 1 und steigender spezifischer Energiebedarf seit dem Messerwechsel am 28.05. Womit kann ich unterstützen?",
+ "demo.chip1":"Bekannte Ursachen?","demo.chip2":"Zeig mir die Prozedur","demo.chip3":"Ja, bitte anfragen",
+ "demo.A1":"<b>7 vergleichbare Fälle</b> nach Messerwechsel an LION-Linien. Wahrscheinlichste Ursachen:<div class='causes'><div class='cause'><span class='prob'>64 %</span><div class='ct'><b>Messersatz ist locker</b>Spannmuttern haben sich gesetzt — Messer mit Spiel erzeugen periodische Drehmoment-Spitzen. Passt zum Muster.</div></div><div class='cause'><span class='prob'>26 %</span><div class='ct'><b>Fremdkörper / aufgewickelte Draht-Ropes („Bären“)</b>zwischen den Wellen — periodische Spitzen im Wellentakt. Sichtprüfung Schneidkammer.</div></div><div class='cause'><span class='prob'>10 %</span><div class='ct'><b>Lagerverschleiß Hydraulikantrieb Welle 1</b>Telemetrie stabil — unwahrscheinlich.</div></div></div><div class='sources'><span class='src'>SR-2024-0312</span><span class='src'>SR-2025-0871</span><span class='src'>Handbuch Kap. 5.4</span><span class='src'>IBN-Protokoll L2</span><span class='src'>Telemetrie 14 d</span></div>",
+ "demo.A2":"<b>Messersatz nachspannen</b> — Kurzprozedur (Kap. 5.4.2, angepasst auf Linie 2):<ol class='steps'><li>Wellen leerfahren, Schneidkammer auf Fremdkörper prüfen (Draht/Ropes).</li><li>Spannmuttern des Messersatzes nach Vorgabe nachziehen (Anzugsmoment lt. Tabelle).</li><li>Messerpaket auf gleichmäßigen Schnittspalt prüfen.</li><li>Probelauf: Drehmoment-Oszillation &lt; ±5 %, spez. Energie zurück auf Basis.</li></ol><b>Empfehlung aus SR-2024-0312:</b> Bei der bereits gelaufenen Standzeit (15.320 h) trotzdem <b>schon einen neuen Messersatz bestellen</b> — proaktiv, bevor er fällig wird.<div class='part'>✓&nbsp; <span class='pid'>DB-LK-0207</span> Messersatz (hot-forged) · <b>1 Satz im Regionallager</b> · vor Ort am Folgetag</div><div class='sources'><span class='src'>Handbuch Kap. 5.4.2</span><span class='src'>SR-2024-0312</span><span class='src'>Stückliste L2</span><span class='src'>Lager Servicepartner</span></div><div style='margin-top:11px'>Soll ich beim Servicepartner <b>gleich den Messersatz anfragen</b>?</div>",
+ "demo.A3":"Erledigt — die Anfrage ist raus und Ihr Messersatz ist bereits für Sie reserviert. Es wird sich umgehend jemand mit Ihnen in Verbindung setzen.<div class='part'>✓&nbsp; <span class='pid'>DB-LK-0207</span> · 1 Satz reserviert · Anfrage an Servicepartner gesendet</div>",
+ "s3.eyebrow":"Schritt 3 · Der Kreislauf pro Kunde — Horizont 3 Jahre",
+ "s3.h2":"Jeder Servicefall macht das System besser",
+ "s3.n1":"Servicefall","s3.n2":"Wissensbasis","s3.n3":"Copilot","s3.core1":"Installed","s3.core2":"Base",
+ "s3.l1h":"Copilot mit Anlagenkontext","s3.l1p":"Kennt nicht das Handbuch — kennt <b>diese</b> Anlage. Live-Telemetrie inklusive.",
+ "s3.l2h":"Kunden-Self-Service, 24/7","s3.l2p":"Mehrsprachig im Portal. Löst USA & Zeitzonen.",
+ "s3.l3h":"Das Flywheel dreht","s3.l3p":"Je größer die angebundene Installed Base, desto besser das System.",
+ "s3.lock":"Ohne vergleichbare Installed Base <b>nicht kopierbar</b> — in vergleichbaren Referenzprojekten: Portal + digitaler Zwilling → <b>zweistelliger Serviceumsatz-Zuwachs</b>.",
+ "fleet.eyebrow":"Schritt 4 · Vom einzelnen Loop zum globalen Kreislauf <span class='zb'>Zielbild · Horizont 3 Jahre</span>",
+ "fleet.h2":"Eine Anlage löst — <em>die ganze Flotte lernt mit.</em>",
+ "fleet.rAmerica":"Amerika","fleet.rEurope":"Europa","fleet.rAsia":"Asien · Pazifik",
+ "fleet.core1":"Fleet","fleet.core2":"Intelligence",
+ "fleet.statBig":"1 → alle","fleet.statLbl":"Eine Anlage löst — die ganze Flotte profitiert.",
+ "fleet.moat":"Nicht kopierbar: <b>Je größer die Flotte, desto schneller lernt jede einzelne Anlage.</b> Skala wird zum Vorsprung.",
+ "fleet.fed":"Federated: <b>Rohdaten bleiben beim Kunden</b> — nur das anonymisierte Muster reist.",
+ "s4.eyebrow":"Schritt 5 · Das Geschäftsmodell — groß gedacht",
+ "s4.h2":"Vom Werkzeug zum Erlösmodell",
+ "s4.s1label":"Stufe 1","s4.s1h":"Verfügbarkeit verkaufen","s4.s1p":"Servicevertrag auf Anlagenverfügbarkeit. Wiederkehrend, zyklusresistent.",
+ "s4.s2label":"Stufe 2","s4.s2h":"Bediener-Copilot beim Kunden","s4.s2p":"Antwort auf seinen Fachkräftemangel. Dafür zahlt er.",
+ "s4.s3label":"Stufe 3","s4.s3h":"Daten als R&D-Kompass","s4.s3p":"Wir entwickeln dorthin, wo der Schmerz real ist.",
+ "s4.pilotBig":"90 Tage",
+ "s4.pilotTxt":"<b>Pilot auf den LION-Shreddern eines internationalen Schlüsselkunden.</b> Team: 2–3 Personen, Plattform über das Meri Service-Portal. Dort beweist der Copilot seinen Wert — und der Kunde sieht das KI-Versprechen eingelöst.",
+ "s5.eyebrow":"Schritt 6 · Die Antwort",
+ "s5.h2":"Wie bleiben wir vorn?",
+ "s5.qecho":"— die Frage vom Anfang. Verteidigbar ist nur, was keiner kopieren kann:",
+ "s5.a1t":"Die eigenen Daten","s5.a1s":"Telemetrie und Servicehistorie, die nur uns gehören.",
+ "s5.a2t":"Das Wissen der Mannschaft","s5.a2s":"Über drei Jahrzehnte Erfahrung — maschinenlesbar gemacht.",
+ "s5.a3t":"Integration in reale Prozesse","s5.a3s":"Fest verankert im Workflow von Technik und Betrieb.",
+ "s5.a4t":"Installed Base aus 5.000+ Maschinen","s5.a4s":"Reichweite, die kein Wettbewerber kurzfristig aufholt.",
+ "s5.close":"Die Nase vorn behält, wer sein <b>Problemverständnis</b> am schnellsten in Daten und Workflows übersetzt.<br><b>Dort würde ich ansetzen.</b>"
+},
+en:{
+ "gate.eyebrow":"AI in Service · Impulse",
+ "gate.title":"Sign in required",
+ "gate.sub":"Please sign in to open the presentation.",
+ "gate.user":"Username","gate.pass":"Password","gate.btn":"Sign in",
+ "gate.err":"Wrong username or password.",
+ "nav.0":"Question","nav.1":"Tool","nav.2":"Proof","nav.3":"Loop","nav.4":"Fleet","nav.5":"Model","nav.6":"Answer",
+ "s1.eyebrow":"Impulse · AI in Service · Tobias Stein",
+ "s1.q":"AI has arrived in industrial service — customers expect it, competitors announce it.<br>How do we deliver on the promise — and <em>stay ahead</em>?",
+ "s1.ans":"My thesis: <b>Not through the best AI.</b> Anyone can buy that.<br>But through what only we have: <b>three decades of service knowledge from 5,000+ machines</b> — made machine-readable.",
+ "s1.byline":"15 June 2026 · Arrow key → for the next step",
+ "s2.eyebrow":"Step 1 · The tool — doable in 12 months",
+ "s2.h2":"Three use cases. One year.",
+ "s2.c1t":"Service Copilot","s2.c1p":"Answers from documentation & service history — with sources. Gets service partners worldwide up to speed faster.",
+ "s2.c2t":"Reports by dictation","s2.c2p":"Saves 30–60 min per job. Every report feeds the knowledge base.",
+ "s2.c3t":"Spare part by photo","s2.c3p":"Photo → parts list → order. Faster revenue.",
+ "s2.fact":"of the project is <b>data work</b>, not AI.<br>And: the AI assists — <b>the technician makes the decision.</b>",
+ "demo.eyebrow":"Step 2 · The proof — prototype, sketched over a weekend",
+ "demo.h2":"This is how it feels for the technician",
+ "demo.ctxlabel":"Machine context",
+ "demo.assetsub":"Reject shredder · twin-shaft · hydraulic",
+ "demo.kvCustomerK":"Customer","demo.kvCustomerV":"Key customer A",
+ "demo.kvUnitK":"Unit","demo.kvUnitV":"Line 2 of 4",
+ "demo.kvHoursK":"Knife-set hours","demo.kvHoursV":"15,320 h",
+ "demo.kvMaintK":"Last service","demo.kvMaintV":"28 May 2026",
+ "demo.telemlabel":"Telemetry · live",
+ "demo.t1":"Rotation speed","demo.t2":"Hydraulic pressure","demo.t3":"Torque peaks shaft 1","demo.t4":"Hydraulic oil temp.",
+ "demo.hint":"Knowledge base: 1,450 service reports · 240 manuals & wiring diagrams · parts lists · telemetry.<br><br>Demo data, scripted.",
+ "demo.toptitle":"Service Copilot","demo.toptag":"Prototype",
+ "demo.topuser":"Service technician on site · service partner (anonymised)",
+ "demo.greeting":"Good morning. Active warning on <b>LION Shredder, line 2</b>: periodic torque peaks on shaft 1 and rising specific energy since the knife change on 28 May. How can I help?",
+ "demo.chip1":"Known causes?","demo.chip2":"Show me the procedure","demo.chip3":"Yes, please request it",
+ "demo.A1":"<b>7 comparable cases</b> after a knife change on LION lines. Most likely causes:<div class='causes'><div class='cause'><span class='prob'>64%</span><div class='ct'><b>Knife set is loose</b>The tension nuts have settled — play in the knives causes periodic torque peaks. Matches the pattern.</div></div><div class='cause'><span class='prob'>26%</span><div class='ct'><b>Foreign object / wound-up wire ropes (“bears”)</b>between the shafts — periodic peaks in shaft rhythm. Visual check of the cutting chamber.</div></div><div class='cause'><span class='prob'>10%</span><div class='ct'><b>Bearing wear, shaft-1 hydraulic drive</b>Telemetry stable — unlikely.</div></div></div><div class='sources'><span class='src'>SR-2024-0312</span><span class='src'>SR-2025-0871</span><span class='src'>Manual ch. 5.4</span><span class='src'>Commissioning log L2</span><span class='src'>Telemetry 14 d</span></div>",
+ "demo.A2":"<b>Re-tension the knife set</b> — short procedure (ch. 5.4.2, adapted to line 2):<ol class='steps'><li>Run the shafts empty, check the cutting chamber for foreign objects (wire/ropes).</li><li>Re-tighten the knife set's tension nuts to spec (torque per the table).</li><li>Check the knife pack for an even cutting gap.</li><li>Test run: torque oscillation &lt; ±5%, specific energy back to baseline.</li></ol><b>Recommendation from SR-2024-0312:</b> Given the hours already run (15,320 h), <b>order a new knife set now anyway</b> — proactively, before it's due.<div class='part'>✓&nbsp; <span class='pid'>DB-LK-0207</span> knife set (hot-forged) · <b>1 set in regional warehouse</b> · on site next day</div><div class='sources'><span class='src'>Manual ch. 5.4.2</span><span class='src'>SR-2024-0312</span><span class='src'>Parts list L2</span><span class='src'>Service-partner warehouse</span></div><div style='margin-top:11px'>Shall I <b>request the knife set</b> from the service partner right away?</div>",
+ "demo.A3":"Done — the request has been sent and your knife set is already reserved for you. Someone will get in touch with you shortly.<div class='part'>✓&nbsp; <span class='pid'>DB-LK-0207</span> · 1 set reserved · request sent to service partner</div>",
+ "s3.eyebrow":"Step 3 · The loop per customer — 3-year horizon",
+ "s3.h2":"Every service case makes the system better",
+ "s3.n1":"Service case","s3.n2":"Knowledge base","s3.n3":"Copilot","s3.core1":"Installed","s3.core2":"Base",
+ "s3.l1h":"Copilot with machine context","s3.l1p":"Doesn't just know the manual — knows <b>this</b> machine. Live telemetry included.",
+ "s3.l2h":"Customer self-service, 24/7","s3.l2p":"Multilingual in the portal. Solves the US & time zones.",
+ "s3.l3h":"The flywheel turns","s3.l3p":"The larger the connected installed base, the better the system.",
+ "s3.lock":"Without a comparable installed base, <b>not copyable</b> — in comparable reference projects: portal + digital twin → <b>double-digit service-revenue growth</b>.",
+ "fleet.eyebrow":"Step 4 · From a single loop to a global cycle <span class='zb'>Target picture · 3-year horizon</span>",
+ "fleet.h2":"One machine solves it — <em>the whole fleet learns.</em>",
+ "fleet.rAmerica":"Americas","fleet.rEurope":"Europe","fleet.rAsia":"Asia · Pacific",
+ "fleet.core1":"Fleet","fleet.core2":"Intelligence",
+ "fleet.statBig":"1 → all","fleet.statLbl":"One machine solves it — the whole fleet benefits.",
+ "fleet.moat":"Not copyable: <b>the larger the fleet, the faster every single machine learns.</b> Scale becomes the lead.",
+ "fleet.fed":"Federated: <b>raw data stays with the customer</b> — only the anonymised pattern travels.",
+ "s4.eyebrow":"Step 5 · The business model — thinking big",
+ "s4.h2":"From tool to revenue model",
+ "s4.s1label":"Stage 1","s4.s1h":"Sell availability","s4.s1p":"Service contract on machine availability. Recurring, cycle-resistant.",
+ "s4.s2label":"Stage 2","s4.s2h":"Operator copilot at the customer","s4.s2p":"An answer to their skills shortage. They'll pay for that.",
+ "s4.s3label":"Stage 3","s4.s3h":"Data as an R&D compass","s4.s3p":"We develop towards where the pain is real.",
+ "s4.pilotBig":"90 days",
+ "s4.pilotTxt":"<b>Pilot on the LION shredders of an international key customer.</b> Team: 2–3 people, platform via the Meri service portal. That's where the copilot proves its value — and the customer sees the AI promise delivered.",
+ "s5.eyebrow":"Step 6 · The answer",
+ "s5.h2":"How do we stay ahead?",
+ "s5.qecho":"— the question from the start. Only what no one can copy is defensible:",
+ "s5.a1t":"Our own data","s5.a1s":"Telemetry and service history that belong only to us.",
+ "s5.a2t":"The team's knowledge","s5.a2s":"Three decades of experience — made machine-readable.",
+ "s5.a3t":"Integration into real processes","s5.a3s":"Firmly anchored in the workflow of engineering and operations.",
+ "s5.a4t":"Installed base of 5,000+ machines","s5.a4s":"Reach that no competitor catches up with quickly.",
+ "s5.close":"Whoever translates their <b>understanding of the problem</b> into data and workflows fastest stays ahead.<br><b>That's where I would start.</b>"
+},
+zh:{
+ "gate.eyebrow":"服务中的人工智能 · 启示",
+ "gate.title":"需要登录",
+ "gate.sub":"请登录以打开本演示。",
+ "gate.user":"用户名","gate.pass":"密码","gate.btn":"登录",
+ "gate.err":"用户名或密码错误。",
+ "nav.0":"问题","nav.1":"工具","nav.2":"实证","nav.3":"循环","nav.4":"机队","nav.5":"模式","nav.6":"答案",
+ "s1.eyebrow":"启示 · 服务中的人工智能 · Tobias Stein",
+ "s1.q":"人工智能已进入工业服务领域——客户期待它，竞争对手也在宣布它。<br>我们如何兑现这一承诺——并<em>保持领先</em>？",
+ "s1.ans":"我的论点：<b>不是靠最好的人工智能。</b>那谁都买得到。<br>而是靠只有我们拥有的：<b>来自 5,000 多台机器、三十余年的服务经验</b>——并让它可被机器读取。",
+ "s1.byline":"2026年6月15日 · 按方向键 → 进入下一步",
+ "s2.eyebrow":"第一步 · 工具——12 个月内可实现",
+ "s2.h2":"三个应用场景。一年时间。",
+ "s2.c1t":"服务副驾","s2.c1p":"依据文档与服务历史作答——并附来源。让全球服务伙伴更快上手。",
+ "s2.c2t":"口述生成报告","s2.c2p":"每次作业节省 30–60 分钟。每份报告都在充实知识库。",
+ "s2.c3t":"拍照识别备件","s2.c3p":"照片 → 物料清单 → 下单。更快产生营收。",
+ "s2.fact":"的工作量是<b>数据工作</b>，而非人工智能。<br>而且：人工智能只是辅助——<b>决策由技术人员做出。</b>",
+ "demo.eyebrow":"第二步 · 实证——周末搭建的原型",
+ "demo.h2":"这就是技术人员的实际体验",
+ "demo.ctxlabel":"设备背景",
+ "demo.assetsub":"排渣破碎机 · 双轴 · 液压驱动",
+ "demo.kvCustomerK":"客户","demo.kvCustomerV":"重点客户 A",
+ "demo.kvUnitK":"设备","demo.kvUnitV":"第 2 / 4 线",
+ "demo.kvHoursK":"刀组运行时长","demo.kvHoursV":"15,320 h",
+ "demo.kvMaintK":"上次维护","demo.kvMaintV":"2026-05-28",
+ "demo.telemlabel":"遥测 · 实时",
+ "demo.t1":"转速","demo.t2":"液压压力","demo.t3":"1号轴扭矩峰值","demo.t4":"液压油温",
+ "demo.hint":"知识库：1,450 份服务报告 · 240 份手册与电气图 · 物料清单 · 遥测数据。<br><br>演示数据，已编排。",
+ "demo.toptitle":"服务副驾","demo.toptag":"原型",
+ "demo.topuser":"现场服务技术员 · 服务伙伴（已匿名）",
+ "demo.greeting":"早上好。<b>LION 破碎机 2 号线</b>有活动告警：自 5 月 28 日换刀以来，1 号轴出现周期性扭矩峰值，且比能耗持续上升。需要我做些什么？",
+ "demo.chip1":"已知原因？","demo.chip2":"显示处理流程","demo.chip3":"好的，请发起申请",
+ "demo.A1":"<b>7 个类似案例</b>均发生在 LION 生产线换刀之后。最可能的原因：<div class='causes'><div class='cause'><span class='prob'>64%</span><div class='ct'><b>刀组松动</b>张紧螺母已松弛——刀片存在间隙，产生周期性扭矩峰值。与当前模式吻合。</div></div><div class='cause'><span class='prob'>26%</span><div class='ct'><b>异物 / 缠绕的钢丝绳（“bears”）</b>卡在双轴之间——峰值随轴的节奏周期出现。请目视检查切割腔。</div></div><div class='cause'><span class='prob'>10%</span><div class='ct'><b>1 号轴液压驱动轴承磨损</b>遥测数据稳定——可能性低。</div></div></div><div class='sources'><span class='src'>SR-2024-0312</span><span class='src'>SR-2025-0871</span><span class='src'>手册第 5.4 章</span><span class='src'>L2 调试记录</span><span class='src'>14 天遥测</span></div>",
+ "demo.A2":"<b>重新张紧刀组</b>——简要流程（第 5.4.2 章，已适配 2 号线）：<ol class='steps'><li>空转双轴，检查切割腔有无异物（钢丝/绳索）。</li><li>按规范重新拧紧刀组的张紧螺母（扭矩见对照表）。</li><li>检查刀片组切割间隙是否均匀。</li><li>试运行：扭矩波动 &lt; ±5%，比能耗回到基线。</li></ol><b>来自 SR-2024-0312 的建议：</b>鉴于已运行时长（15,320 h），仍建议<b>现在就另购一套新刀组</b>——在到期之前主动备件。<div class='part'>✓&nbsp; <span class='pid'>DB-LK-0207</span> 刀组（热锻）· <b>区域仓库现有 1 套</b> · 次日送达现场</div><div class='sources'><span class='src'>手册第 5.4.2 章</span><span class='src'>SR-2024-0312</span><span class='src'>L2 物料清单</span><span class='src'>服务伙伴仓库</span></div><div style='margin-top:11px'>需要我立即向服务伙伴<b>申请该刀组</b>吗？</div>",
+ "demo.A3":"已完成——申请已发出，您的刀组也已为您预留。很快会有人与您联系。<div class='part'>✓&nbsp; <span class='pid'>DB-LK-0207</span> · 已预留 1 套 · 申请已发送至服务伙伴</div>",
+ "s3.eyebrow":"第三步 · 每位客户的循环——三年视野",
+ "s3.h2":"每一次服务都让系统更聪明",
+ "s3.n1":"服务事件","s3.n2":"知识库","s3.n3":"副驾","s3.core1":"装机","s3.core2":"保有量",
+ "s3.l1h":"具备设备背景的副驾","s3.l1p":"它不只懂手册——它懂<b>这一台</b>设备。含实时遥测。",
+ "s3.l2h":"客户自助服务，全天候","s3.l2p":"门户多语言支持。解决美国与时区难题。",
+ "s3.l3h":"飞轮转起来了","s3.l3p":"接入的装机量越大，系统越强。",
+ "s3.lock":"没有可比的装机基础就<b>无法复制</b>——在同类标杆项目中：门户 + 数字孪生 → <b>两位数的服务营收增长</b>。",
+ "fleet.eyebrow":"第四步 · 从单一循环到全球循环 <span class='zb'>目标愿景 · 三年视野</span>",
+ "fleet.h2":"一台设备解决问题——<em>整个机队随之学习。</em>",
+ "fleet.rAmerica":"美洲","fleet.rEurope":"欧洲","fleet.rAsia":"亚太",
+ "fleet.core1":"机队","fleet.core2":"智能",
+ "fleet.statBig":"1 → 全部","fleet.statLbl":"一台设备解决——整个机队受益。",
+ "fleet.moat":"无法复制：<b>机队越大，每一台设备学习得越快。</b>规模即领先。",
+ "fleet.fed":"联邦式：<b>原始数据留在客户处</b>——只有匿名化的模式在流动。",
+ "s4.eyebrow":"第五步 · 商业模式——放大格局",
+ "s4.h2":"从工具到盈利模式",
+ "s4.s1label":"阶段 1","s4.s1h":"出售可用性","s4.s1p":"以设备可用性为基础的服务合同。经常性收入，抗周期波动。",
+ "s4.s2label":"阶段 2","s4.s2h":"客户现场的操作员副驾","s4.s2p":"应对其技工短缺的良方。客户愿意为此付费。",
+ "s4.s3label":"阶段 3","s4.s3h":"数据作为研发指南针","s4.s3p":"哪里痛点真实，我们就朝哪里研发。",
+ "s4.pilotBig":"90 天",
+ "s4.pilotTxt":"<b>在某国际重点客户的 LION 破碎机上试点。</b>团队：2–3 人，平台依托 Meri 服务门户。副驾在那里证明其价值——客户也看到人工智能承诺得到兑现。",
+ "s5.eyebrow":"第六步 · 答案",
+ "s5.h2":"我们如何保持领先？",
+ "s5.qecho":"——开头的那个问题。唯有无人能复制者，方可防御：",
+ "s5.a1t":"自有数据","s5.a1s":"只属于我们的遥测与服务历史。",
+ "s5.a2t":"团队的知识","s5.a2s":"三十余年经验——化为机器可读。",
+ "s5.a3t":"融入真实流程","s5.a3s":"深嵌于工程与运营的工作流之中。",
+ "s5.a4t":"5,000 多台机器的装机基础","s5.a4s":"竞争对手短期内无法追赶的覆盖面。",
+ "s5.close":"谁能最快把对<b>问题的理解</b>转化为数据与工作流，谁就保持领先。<br><b>我会从这里入手。</b>"
+}
+};
+
+/* Fleet captions per language */
+const FLEET_CAPS={
+ de:[
+  ['Ausgangslage','Weltweite Installed Base — jede Anlage sendet Telemetrie.'],
+  ['1 · Signale','Mehrere Standorte melden Auffälligkeiten — Amerika, Europa, Asien.'],
+  ['2 · Erfassen','Anonymisierte Daten fließen aus der Flotte in die Fleet Intelligence.'],
+  ['3 · Verarbeiten','Die Fleet Intelligence erkennt das Muster und destilliert eine Lösung.'],
+  ['4 · Ausrollen','Das Update wird an die gesamte globale Flotte ausgerollt.'],
+  ['5 · Wirkung','Jeder gelöste Fall verbessert sofort alle Anlagen — über Nacht, weltweit.'],
+  ['6 · Burggraben','Der Vorsprung wächst mit jeder angebundenen Anlage.']
+ ],
+ en:[
+  ['Starting point','Global installed base — every machine sends telemetry.'],
+  ['1 · Signals','Several sites report anomalies — Americas, Europe, Asia.'],
+  ['2 · Collect','Anonymised data flows from the fleet into Fleet Intelligence.'],
+  ['3 · Process','Fleet Intelligence spots the pattern and distils a solution.'],
+  ['4 · Roll out','The update is rolled out to the entire global fleet.'],
+  ['5 · Impact','Every solved case instantly improves all machines — overnight, worldwide.'],
+  ['6 · Moat','The lead grows with every connected machine.']
+ ],
+ zh:[
+  ['初始状态','全球装机——每台设备都在发送遥测数据。'],
+  ['1 · 信号','多个站点报告异常——美洲、欧洲、亚洲。'],
+  ['2 · 采集','匿名数据从机队汇入 Fleet Intelligence。'],
+  ['3 · 处理','Fleet Intelligence 识别模式并提炼出解决方案。'],
+  ['4 · 推送','更新被推送至全球整个机队。'],
+  ['5 · 成效','每解决一个案例，所有设备立即改进——一夜之间，遍及全球。'],
+  ['6 · 护城河','每接入一台设备，领先优势就增长一分。']
+ ]
+};
+
+/* ============ State ============ */
 const SECTIONS=["s1","s2","sdemo","s3","sfleet","s4","s5"];
-const LABELS=["Frage","Werkzeug","Beweis","Kreislauf","Fleet","Modell","Antwort"];
-let cur=0;
-let authed=false;
+let cur=0, authed=false, LANG='de';
+
+/* ============ Login ============ */
+const CREDS={user:'meri', pass:'meri2026'};
 function doLogin(e){
   e.preventDefault();
   const u=document.getElementById('gu').value.trim();
   const p=document.getElementById('gp').value;
-  if(u==='TS'&&p==='TS_123'){
+  if(u===CREDS.user && p===CREDS.pass){
     authed=true;
     document.getElementById('gate').classList.add('hidden');
   }else{
-    document.getElementById('gerr').textContent='Benutzername oder Passwort falsch.';
+    document.getElementById('gerr').textContent=I18N[LANG]['gate.err'];
     document.getElementById('gp').value='';
   }
   return false;
 }
 
-/* Storybar */
+/* ============ i18n apply ============ */
+function setLang(lang){
+  if(!I18N[lang])return;
+  LANG=lang;
+  const dict=I18N[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    const v=dict[k];
+    if(v===undefined)return;
+    if(el.namespaceURI==='http://www.w3.org/2000/svg' || v.indexOf('<')===-1){
+      el.textContent=v;
+    }else{
+      el.innerHTML=v;
+    }
+  });
+  document.documentElement.lang = lang==='zh'?'zh-CN':lang;
+  document.querySelectorAll('#langsw button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));
+  // gate error refresh
+  const ge=document.getElementById('gerr'); if(ge.textContent) ge.textContent=dict['gate.err'];
+  // demo: reset chat to greeting in current language
+  resetDemo();
+  // fleet: re-render current phase text
+  Fleet.refresh();
+}
+
+/* ============ Story bar ============ */
 const sb=document.getElementById('storybar');
-LABELS.forEach((l,i)=>{
+for(let i=0;i<SECTIONS.length;i++){
   const n=document.createElement('div');n.className='snode'+(i===0?' cur':'');
-  n.innerHTML=`<span class="lbl">${l}</span><span class="ln"></span>`;
+  n.innerHTML=`<span class="lbl" data-i18n="nav.${i}"></span><span class="ln"></span>`;
   n.querySelector('.lbl').onclick=()=>jump(i);
   sb.appendChild(n);
-});
+}
 function paintBar(){
   document.querySelectorAll('.snode').forEach((n,i)=>{
     n.classList.toggle('cur',i===cur);
@@ -547,60 +819,44 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Home')jump(0);
 });
 
-/* ===== Demo ===== */
+/* ============ Demo ============ */
 const chat=document.getElementById('chat');
 function el(h){const d=document.createElement('div');d.innerHTML=h;return d.firstElementChild;}
 function scr(){chat.scrollTop=chat.scrollHeight;}
-const A1=`<div class="msg bot">
-  <div class="head"><div class="avatar">AI</div><div class="who">CSC SERVICE-COPILOT</div></div>
-  <b>7 vergleichbare Fälle</b> nach Walzenwechsel an EVEREX-Linien. Wahrscheinlichste Ursachen:
-  <div class="causes">
-    <div class="cause"><span class="prob">68 %</span><div class="ct"><b>PAM-Kalibrierung nach Walzenwechsel fehlt</b>Stellantriebe regeln gegen das alte Walzenprofil — passt zum Muster.</div></div>
-    <div class="cause"><span class="prob">22 %</span><div class="ct"><b>Rundlauffehler der neuen Chill-Roll</b>Messuhr am Zapfen, Soll &lt; 5 µm.</div></div>
-    <div class="cause"><span class="prob">10 %</span><div class="ct"><b>Schmelzedruckschwankung Extruder B</b>Telemetrie stabil — unwahrscheinlich.</div></div>
-  </div>
-  <div class="sources"><span class="src">SR-2024-0312</span><span class="src">SR-2025-0871</span><span class="src">Handbuch Kap. 7.3</span><span class="src">IBN-Protokoll L3</span><span class="src">Telemetrie 14 d</span></div>
-</div>`;
-const A2=`<div class="msg bot">
-  <div class="head"><div class="avatar">AI</div><div class="who">CSC SERVICE-COPILOT</div></div>
-  <b>PAM-Kalibrierung</b> — Kurzprozedur (Kap. 7.3.2, angepasst auf Linie 3):
-  <ol class="steps">
-    <li>Kalibriergeschwindigkeit 180 m/min, Dickenmessung auf Referenzmodus.</li>
-    <li>PAM-Lernmodus (HMI → Düse → Kalibrierung), ca. 20 min.</li>
-    <li>Profilvergleich freigeben, Stellantriebe referenzieren.</li>
-    <li>Toleranzband prüfen: Ziel ±1,5 µm Bahnmitte.</li>
-  </ol>
-  <b>Hinweis aus SR-2024-0312:</b> Stellantrieb 14/15 referenziert nicht → tauschen statt mehrfach kalibrieren.
-  <div class="part">✓&nbsp; <span class="pid">DB-ST-0415</span> Stellantrieb · <b>4 Stück im Regionallager vor Ort</b> · vor Ort am selben Tag</div>
-  <div class="sources"><span class="src">Handbuch Kap. 7.3.2</span><span class="src">SR-2024-0312</span><span class="src">Stückliste L3</span><span class="src">Lager Servicepartner</span></div>
-  <div style="margin-top:11px">Soll ich beim Servicepartner <b>gleich ein Ersatzteil anfragen</b>?</div>
-</div>`;
-const A3=`<div class="msg bot">
-  <div class="head"><div class="avatar">AI</div><div class="who">CSC SERVICE-COPILOT</div></div>
-  Erledigt — die Anfrage ist raus und Ihr Bauteil ist bereits für Sie reserviert. Es wird sich umgehend jemand mit Ihnen in Verbindung setzen.
-  <div class="part">✓&nbsp; <span class="pid">DB-ST-0415</span> · 1 Stück reserviert · Anfrage an Servicepartner gesendet</div>
-</div>`;
-const QS={1:"Bekannte Ursachen?",2:"Zeig mir die PAM-Kalibrierprozedur",3:"Ja, bitte anfragen"};
-const ANS={1:A1,2:A2,3:A3};
+function resetDemo(){
+  const d=I18N[LANG];
+  chat.innerHTML=`<div class="msg bot"><div class="head"><div class="avatar">AI</div><div class="who">MERI SERVICE-COPILOT</div></div>${d['demo.greeting']}</div>`;
+  document.getElementById('c1').disabled=false;
+  document.getElementById('c2').disabled=true;
+  document.getElementById('c3').disabled=true;
+}
 function ask(n){
+  const d=I18N[LANG];
   document.getElementById('c'+n).disabled=true;
-  chat.appendChild(el(`<div class="msg user">${QS[n]}</div>`));scr();
+  chat.appendChild(el(`<div class="msg user">${d['demo.chip'+n]}</div>`));scr();
   const t=el('<div class="typing"><i></i><i></i><i></i></div>');
   setTimeout(()=>{chat.appendChild(t);scr();},350);
-  setTimeout(()=>{t.remove();chat.appendChild(el(ANS[n]));scr();
+  setTimeout(()=>{
+    t.remove();
+    chat.appendChild(el(`<div class="msg bot"><div class="head"><div class="avatar">AI</div><div class="who">MERI SERVICE-COPILOT</div></div>${d['demo.A'+n]}</div>`));
+    scr();
     if(n===1)document.getElementById('c2').disabled=false;
     if(n===2)document.getElementById('c3').disabled=false;
   },n===3?1500:(n===1?1900:1700));
 }
+function fmtDec(v,dec){
+  const s=v.toFixed(dec);
+  return LANG==='de'? s.replace('.',','):s;
+}
 setInterval(()=>{
   const a=document.getElementById('tv1'),b=document.getElementById('tv2'),c=document.getElementById('tv3');
   if(!a)return;
-  a.textContent=(248+Math.floor(Math.random()*5))+" m/min";
-  b.textContent=(184+Math.floor(Math.random()*5))+" bar";
-  c.textContent=(21.2+Math.random()*0.5).toFixed(1).replace('.',',')+" °C";
+  a.textContent=fmtDec(16+Math.random()*2,1)+" rpm";
+  b.textContent=(170+Math.floor(Math.random()*151))+" bar";
+  c.textContent=fmtDec(47.6+Math.random()*1.4,1)+" °C";
 },2200);
 
-/* ===== Fleet Intelligence (Schritt 4) ===== */
+/* ============ Fleet Intelligence ============ */
 const Fleet=(function(){
   const NS='http://www.w3.org/2000/svg';
   const FL_NODES=[
@@ -624,15 +880,6 @@ const Fleet=(function(){
   const capStep=document.getElementById('flcapStep'),capTxt=document.getElementById('flcapTxt');
   const wave=document.getElementById('flwave'),halo=document.getElementById('flhalo'),core=document.getElementById('flcore');
   const flstat=document.getElementById('flstat'),flmoat=document.getElementById('flmoat');
-  const CAPS=[
-    ['Ausgangslage','Weltweite Installed Base — jede Anlage sendet Telemetrie.'],
-    ['1 · Signale','Mehrere Standorte melden Auffälligkeiten — Amerika, Europa, Asien.'],
-    ['2 · Erfassen','Anonymisierte Daten fließen aus der Flotte in die Fleet Intelligence.'],
-    ['3 · Verarbeiten','Die Fleet Intelligence analysiert die Signale und destilliert ein Muster.'],
-    ['4 · Ausrollen','Das Update wird an die gesamte globale Flotte ausgerollt.'],
-    ['5 · Wirkung','Jeder gelöste Fall verbessert sofort alle Anlagen — über Nacht, weltweit.'],
-    ['6 · Burggraben','Der Vorsprung wächst mit jeder angebundenen Anlage.']
-  ];
   const MAX=6;let phase=0;
   function node(i){return document.getElementById('fln'+i);}
   function conn(i){return document.getElementById('flc'+i);}
@@ -644,7 +891,8 @@ const Fleet=(function(){
   }
   function render(p){
     clearAll();
-    capStep.textContent=CAPS[p][0];capTxt.textContent=CAPS[p][1];
+    const caps=FLEET_CAPS[LANG];
+    capStep.textContent=caps[p][0];capTxt.textContent=caps[p][1];
     if(p>=1&&p<=3)SENDERS.forEach(i=>node(i).classList.add('sig'));
     if(p===2||p===3)SENDERS.forEach(i=>conn(i).setAttribute('class','conn flow'));
     if(p===2)core.classList.add('recv');
@@ -662,9 +910,14 @@ const Fleet=(function(){
     reset(){phase=0;render(0);},
     last(){phase=MAX;render(MAX);},
     next(){if(phase<MAX){phase++;render(phase);return true;}return false;},
-    prev(){if(phase>0){phase--;render(phase);return true;}return false;}
+    prev(){if(phase>0){phase--;render(phase);return true;}return false;},
+    refresh(){render(phase);}
   };
 })();
+
+/* ============ Init ============ */
+setLang('de');
+Fleet.reset();
 </script>
 </body>
 </html>
