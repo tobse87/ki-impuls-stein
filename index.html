@@ -225,6 +225,83 @@
 
   @media (max-width:880px){.cards3,.stufen,.assets{grid-template-columns:1fr}.d-side{display:none}#s3 .wrap,.flwrap{flex-direction:column}.lrow p{max-width:none}}
 
+  /* ===== Mobile / small screens ===== */
+  @media (max-width:760px){
+    .brandmark{display:none}
+    .storybar{justify-content:flex-start;gap:0;overflow-x:auto;overflow-y:hidden;padding:0 92px 0 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .storybar::-webkit-scrollbar{display:none}
+    .snode .lbl{font-size:11px;letter-spacing:.3px;padding:5px 8px}
+    .snode .ln{width:9px}
+    .langsw{right:8px;top:8px;height:28px;padding:0 3px;gap:2px}
+    .langsw button{font-size:12px;height:20px;line-height:20px;padding:0 8px}
+
+    section{padding:2.6vh 6vw 9vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+    h2{font-size:26px;margin-top:.6vh}
+    .eyebrow{font-size:12px;letter-spacing:2px}
+
+    #s1{justify-content:flex-start;padding-top:5vh}
+    #s1 .q{font-size:29px;line-height:1.22}
+    #s1 .ans{font-size:18px;margin-top:3vh}
+    #s1 .byline{position:static;margin-top:3vh;font-size:13px}
+
+    .cards3{margin-top:3vh;gap:14px}
+    .ucard{padding:18px 16px;border-radius:14px}
+    .ucard h3{font-size:20px;margin:12px 0 6px}
+    .ucard .one{font-size:15px}
+    .num{width:42px;height:42px;font-size:20px}
+    .bigfact{flex-direction:column;gap:6px;padding:16px}
+    .bigfact .pct{font-size:38px}
+    .bigfact .txt{font-size:16px}
+
+    #sdemo{padding-bottom:2.4vh}
+    .demoframe{margin-top:1.4vh;border-radius:12px}
+    .msg{font-size:15px;padding:11px 14px;max-width:93%}
+    .msg.bot .who{font-size:12px}
+    .msg.bot .avatar{width:18px;height:18px;font-size:9px}
+    .cause .ct{font-size:14px}.cause .prob{font-size:12px;width:38px}
+    .steps li{font-size:14px}.part{font-size:14px}.src{font-size:12px}
+    .d-top h4{font-size:15px}.d-tag{font-size:10px}.d-top .du{display:none}
+    .chip{font-size:14px;padding:8px 13px}
+    .chat{padding:12px 14px 6px;gap:8px}
+
+    #s3 .wrap{gap:2vh}
+    .fly{width:min(70vw,38vh);height:min(70vw,38vh)}
+    #s3 .legend{gap:1.6vh}
+    .lrow{gap:12px}
+    .lrow h3{font-size:19px}.lrow p{font-size:14px}
+    .lnum{width:38px;height:38px;font-size:17px}
+    .lock{font-size:15px;padding:14px}
+
+    .flwrap{gap:1.6vh;margin-top:1vh}
+    .flscene{height:32vh;min-height:180px}
+    .flside{width:100%}
+    .flcap{height:auto;padding:14px}
+    .flcap .txt{font-size:16px}
+    .flstat .big{font-size:30px}.flstat .lbl{font-size:13px}
+    .flmoat{font-size:14px}.flfed{font-size:12px}
+    .zb{display:inline-block;margin:6px 0 0}
+
+    .stufen{margin-top:3vh;gap:14px}
+    .scard{padding:16px}
+    .scard h3{font-size:19px}.scard .one{font-size:14px}
+    .pilot{flex-direction:column;align-items:flex-start;gap:10px;padding:16px}
+    .pilot .big{font-size:30px}.pilot .pt{font-size:15px}
+
+    #s5 .qecho{font-size:15px}
+    .assets{gap:12px;margin-top:2.4vh}
+    .acard{padding:16px}
+    .acard .at{font-size:18px}.acard .as{font-size:14px}
+    #s5 .close{font-size:19px;margin-top:2.4vh}
+
+    .arrow{width:40px;height:40px;font-size:16px;opacity:.9}
+    .counter{bottom:8px;right:10px;font-size:12px}
+  }
+  @media (max-height:480px) and (orientation:landscape){
+    section{overflow-y:auto;padding:2vh 6vw 7vh}
+    #s1{justify-content:flex-start;padding-top:3vh}
+    #s1 .byline{position:static;margin-top:2vh}
+  }
+
   /* ===== Login Gate ===== */
   .gate{position:fixed;inset:0;z-index:999;background:var(--deep);display:flex;align-items:center;justify-content:center}
   .gate.hidden{display:none}
@@ -818,6 +895,20 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();step(-1);}
   if(e.key==='Home')jump(0);
 });
+
+/* ===== Touch / swipe navigation (mobile) ===== */
+(function(){
+  let sx=0, sy=0, st=0, tracking=false;
+  document.addEventListener('touchstart',function(e){
+    if(!authed||e.touches.length!==1)return;
+    const t=e.changedTouches[0]; sx=t.clientX; sy=t.clientY; st=Date.now(); tracking=true;
+  },{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(!authed||!tracking)return; tracking=false;
+    const t=e.changedTouches[0]; const dx=t.clientX-sx, dy=t.clientY-sy, dt=Date.now()-st;
+    if(dt<700 && Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.7){ step(dx<0?1:-1); }
+  },{passive:true});
+})();
 
 /* ============ Demo ============ */
 const chat=document.getElementById('chat');
